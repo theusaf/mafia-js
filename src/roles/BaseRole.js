@@ -16,13 +16,29 @@ class BaseRole {
      */
     this.description = "";
     /**
-     * @param {Number} attach The
+     * @param {Number} attack The default value of attacks made by this role.
      */
     this.attack = ATTACK.NONE;
+    /**
+     * @param {Number} attack The default defense value of this role.
+     */
     this.defense = DEFENSE.NONE;
+    /**
+     * @param {null|String} attack The team of this role. null if on no team.
+     */
     this.team = null;
+    /**
+     * @param {String[]} type The type of the role.
+     */
     this.type = ["neutral", "benign"];
+    /**
+     * @param {String[]} winsWith The role names this role can win with. "*" = all roles
+     */
     this.winsWith = ["*"];
+    /**
+     * @param {Object} additionalInformation Extra information for specific interactions. This is copied over if the role is replaced.
+     */
+    this.additionalInformation = {};
 
     /**
      * @param {Boolean|String|String[]} require
