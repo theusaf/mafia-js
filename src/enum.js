@@ -7,6 +7,11 @@ const ENUM = {
     VOTE_DEFENSE: 5, // someone's testimony
     VOTE_LYNCH: 6 // whether guilty/innocent
   },
+  ACTION_EXECUTE: {
+    NIGHT_END: 0,
+    IMMEDIATELY: 1,
+    NIGHT_START: 2
+  },
   ATTACK: {
     NONE: 0,
     BASIC: 1,

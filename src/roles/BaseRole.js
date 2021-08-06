@@ -28,8 +28,11 @@ class BaseRole {
      */
     this.type = ["neutral", "benign"];
     /**
-     * @param {String[]|String[][]} winsWith The type names this role can win with. "*" = all types
+     * @param {String[]|String[][]|Function[]} winsWith The type names this role can win with. "*" = all types
      * - If an element is an array of strings, the role must contain all of those strings.
+     * - If an element is a function, it must return true if the role is a role that it can win with.
+     * Example:
+     * (role) => return role.name === "Jester"; // wins with jester
      */
     this.winsWith = ["*"];
     /**

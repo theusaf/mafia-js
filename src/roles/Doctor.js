@@ -1,4 +1,18 @@
-const BaseRole = require("./BaseRole");
+const BaseRole = require("./BaseRole"),
+  Action = require("../Action"),
+  {TARGET_FILTER} = require("../enum");
+
+class HealAction extends Action {
+
+  constructor(isSelfHeal) {
+    super();
+    if (isSelfHeal) {
+      this.setTargetFilter(TARGET_FILTER.SELF);
+    }
+    this.setType(["heal"]);
+  }
+
+};
 
 class Doctor extends BaseRole {
   constructor(player) {
@@ -15,6 +29,10 @@ class Doctor extends BaseRole {
     };
   }
 
-  
+  getNightActions() {
+    return [new HealAction, new HealAction(true)];
+  }
 
 }
+
+module.exports = Doctor;
