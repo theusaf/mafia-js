@@ -1,4 +1,12 @@
 const ENUM = {
+  STAGE: {
+    NIGHT: 1, // where the majority of actions take place
+    PRE_DISCUSSION: 2, // notifying all about deaths and stuff
+    DISCUSSION: 3, // discussion
+    VOTING: 4, // voting to lynch someone
+    VOTE_DEFENSE: 5, // someone's testimony
+    VOTE_LYNCH: 6 // whether guilty/innocent
+  },
   ATTACK: {
     NONE: 0,
     BASIC: 1,
@@ -12,6 +20,7 @@ const ENUM = {
     INVINCIBLE: 3
   },
   TARGET_FILTER: {
+    NONE: () => false,
     ALL: () => true,
     SELF: (player, me) => player === me,
     NOT_SELF: (player, me) => player !== me,

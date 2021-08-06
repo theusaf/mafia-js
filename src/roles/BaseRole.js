@@ -1,4 +1,4 @@
-const {ATTACK, DEFENSE} = require("../enum");
+const {DEFENSE} = require("../enum");
 
 class BaseRole {
 
@@ -85,6 +85,10 @@ class BaseRole {
    * beforeGameSetup - Runs before the game starts, when all players have been added and the game starts.
    */
   beforeGameSetup() {}
+  /**
+   * beforeNightSetup - Runs before the night starts
+   */
+  beforeNightSetup() {}
   /**
    * afterNightSetup - Runs after all night actions have been completed.
    */
