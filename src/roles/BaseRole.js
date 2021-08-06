@@ -71,6 +71,7 @@ class BaseRole {
 
   /**
    * getNightActions/getDayActions - Returns the night/day actions of this role.
+   * - These are run even if the player is dead.
    *
    * @return {Action[]} An array of actions
    */

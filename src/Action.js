@@ -7,12 +7,39 @@ const {TARGET_FILTER, ATTACK, ACTION_EXECUTE} = require("./enum");
  */
 class Action {
   constructor() {
+    /**
+     * @param {Function} targetFilter The filter to select targets
+     * - Takes a player and a me parameter, of type Player
+     * - me is the Player the action comes from
+     */
     this.targetFilter = TARGET_FILTER.NONE;
+    /**
+     * @param {Player} target The target of the action
+     */
     this.target = null;
+    /**
+     * @param {Number} executeAt When the action's code should be executed
+     */
     this.executeAt = ACTION_EXECUTE.NIGHT_END;
+    /**
+     * @param {String[]} type An array of strings, which are tags that group actions
+     */
     this.type = [];
+    /**
+     * @param {Number} attack The attack value of the action
+     */
     this.attack = ATTACK.NONE;
-    this.priority = 0;
+    /**
+     * @param {Number} priority The priority of the action. 1 = highest, 6 = lowest.
+     * - Determines execute order, not overwrite order.
+     */
+    this.priority = 6;
+
+    /**
+     * @param {Object[]} details This is used to store information about actions against this action.
+     * - Ex: {detail: "cancelled", from: Role}
+     */
+    this.details = [];
   }
 
   setTargetFilter(targetFilter) {
