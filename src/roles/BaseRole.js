@@ -20,15 +20,16 @@ class BaseRole {
      */
     this.defense = DEFENSE.NONE;
     /**
-     * @param {null|String} attack The team of this role. null if on no team.
+     * @param {String} attack The team of this role. "none" if on no team.
      */
-    this.team = null;
+    this.team = "none";
     /**
      * @param {String[]} type The type of the role.
      */
     this.type = ["neutral", "benign"];
     /**
-     * @param {String[]} winsWith The role names this role can win with. "*" = all roles
+     * @param {String[]|String[][]} winsWith The type names this role can win with. "*" = all types
+     * - If an element is an array of strings, the role must contain all of those strings.
      */
     this.winsWith = ["*"];
     /**
@@ -52,12 +53,18 @@ class BaseRole {
     };
   }
 
+  set additionalInformation(information) {
+    Object.assign(this.additionalInformation, information);
+  }
+
   /**
    * didWin - Called at the end of the game, checks the victory condition of this role.
    *
    * @return {Boolean} Whether the role actually won the game.
    */
-  didWin() {}
+  didWin() {
+    return this.player.isAlive;
+  }
 
   /**
    * getNightActions/getDayActions - Returns the night/day actions of this role.
@@ -66,6 +73,13 @@ class BaseRole {
    */
   getNightActions() {}
   getDayActions() {}
+
+  /**
+   * getJailActions - Returns actions that can be done while in jail.
+   *
+   * @return {Action[]} An array of actions
+   */
+  getJailActions() {}
 
   /**
    * beforeGameSetup - Runs before the game starts, when all players have been added and the game starts.
@@ -82,6 +96,7 @@ class BaseRole {
 
   setDefense(defense=0) {this.defense = defense; return this;}
   setType(type) {if(Array.isArray(type)) {this.type = type;} return this;}
+  setTeam(team) {this.team = team; return this;}
   setWinsWith(type) {if(Array.isArray(type)) {this.winsWith = type;} return this;}
   setDescription(description="") {this.description = description; return this;}
 

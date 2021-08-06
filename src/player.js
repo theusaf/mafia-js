@@ -6,6 +6,7 @@ class Player {
     this._role = null;
     this.id = id;
     this.name = name;
+    this.isAlive = true;
   }
 
   /**

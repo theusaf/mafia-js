@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/theusaf/mafia-js/issues"
   },
-  "homepage": "https://github.com/theusaf/mafia-js#readme"
+  "homepage": "https://github.com/theusaf/mafia-js#readme",
+  "devDependencies": {
+    "eslint": "^7.32.0"
+  }
 }
