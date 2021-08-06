@@ -16,11 +16,7 @@ class BaseRole {
      */
     this.description = "";
     /**
-     * @param {Number} attack The default value of attacks made by this role.
-     */
-    this.attack = ATTACK.NONE;
-    /**
-     * @param {Number} attack The default defense value of this role.
+     * @param {Number} defense The default defense value of this role.
      */
     this.defense = DEFENSE.NONE;
     /**
@@ -84,7 +80,6 @@ class BaseRole {
    */
   afterVotingSetup() {}
 
-  setAttack(attack=0) {this.attack = attack; return this;}
   setDefense(defense=0) {this.defense = defense; return this;}
   setType(type) {if(Array.isArray(type)) {this.type = type;} return this;}
   setWinsWith(type) {if(Array.isArray(type)) {this.winsWith = type;} return this;}
