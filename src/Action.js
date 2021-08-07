@@ -90,6 +90,12 @@ class Action {
     });
   }
 
+  /**
+   * onSuccessfulAttack - executed when the attack is successful.
+   * - Action's attack > target's defense
+   */
+  onSuccessfulAttack() {}
+
   setTargetFilter(targetFilter) {
     if (typeof targetFilter !== "function") {
       throw new TypeError("targetFilter must be a function.");

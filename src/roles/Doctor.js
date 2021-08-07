@@ -1,5 +1,6 @@
 const BaseRole = require("./BaseRole"),
   Action = require("../Action"),
+  Detail = require("../Detail"),
   {TARGET_FILTER, ATTACK, DEFENSE} = require("../enum");
 
 class HealAction extends Action {
@@ -22,11 +23,13 @@ class HealAction extends Action {
     for (const action of actions) {
       const attack = action.attack;
       if (attack > ATTACK.NONE) {
-        action.addDetail({
-          detail: "heal",
-          defenseValue: DEFENSE.POWERFUL,
-          from: this.from
-        });
+        action.addDetail(
+          new Detail("heal", this.from, {
+            player: {
+              defense: DEFENSE.POWERFUL
+            }
+          })
+        );
       }
     }
   }
