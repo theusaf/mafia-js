@@ -1,6 +1,6 @@
 const BaseRole = require("./BaseRole"),
   Action = require("../Action"),
-  {TARGET_FILTER} = require("../enum");
+  {TARGET_FILTER, ACTION_TYPE} = require("../enum");
 
 class CopiedAction extends Action {
   constructor(from) {
@@ -20,7 +20,7 @@ class ReviveAction extends Action {
           && !this.from.additionalInformation.retributionistTargetsUsed.includes(player);
       })
       .setPriority(1)
-      .setType(["retribute", "transport-immune", "roleblock-immune", "control-immune"]);
+      .setType(["retribute", ACTION_TYPE.TRANSPORT_IMMUNE, ACTION_TYPE.ROLEBLOCK_IMMUNE, ACTION_TYPE.CONTROL_IMMUNE]);
   }
 
   execute() {

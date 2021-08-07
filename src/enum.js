@@ -35,6 +35,7 @@ const ENUM = {
     NOT_TEAM: (player, me) => !ENUM.TARGET_FILTER.TEAM(player, me)
   },
   // Currently, these are tags that have to be implemented in each role
+  // TODO: implement these tags to be built-in somehow
   ACTION_TYPE: {
     // Action cannot be transported
     TRANSPORT_IMMUNE: "transport_immune",
@@ -45,7 +46,9 @@ const ENUM = {
     // Cannot be cancelled
     ROLEBLOCK_IMMUNE: "roleblock_immune",
     // Action will still execute if target is jailed
-    BYPASS_JAIL
+    BYPASS_JAIL: "bypass_jail",
+    // Cannot be controlled
+    CONTROL_IMMUNE: "control_immune"
   }
 };
 

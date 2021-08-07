@@ -1,12 +1,12 @@
 const BaseRole = require("./BaseRole"),
   Action = require("../Action"),
-  {TARGET_FILTER} = require("../enum");
+  {TARGET_FILTER, ACTION_TYPE} = require("../enum");
 
 class TransportAction extends Action {
   constructor(from) {
     super(from);
     this.setTargetFilter(TARGET_FILTER.LIVING)
-      .setType(["transport", "roleblock-immune", "control-immune", "transport-immune"])
+      .setType(["transport", ACTION_TYPE.ROLEBLOCK_IMMUNE, ACTION_TYPE.ROLEBLOCK_IMMUNE, ACTION_TYPE.CONTROL_IMMUNE])
       .setPriority(1);
   }
 
@@ -21,12 +21,12 @@ class TransportAction extends Action {
       firstTargetActions = actions.filter(action => {
         return action.target === firstTarget
           && action !== this
-          && !action.type.includes("transport-immune");
+          && !action.type.includes(ACTION_TYPE.TRANSPORT_IMMUNE);
       }),
       secondTargetActions = actions.filter(action => {
         return action.target === secondTarget
           && action !== otherAction
-          && !action.type.includes("transport-immune");
+          && !action.type.includes(ACTION_TYPE.TRANSPORT_IMMUNE);
       });
     // begin swapping!
     for (const action of firstTargetActions) {

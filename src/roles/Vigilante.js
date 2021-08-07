@@ -1,11 +1,11 @@
 const BaseRole = require("./BaseRole"),
   Action = require("../Action"),
-  {TARGET_FILTER, ATTACK} = require("../enum");
+  {TARGET_FILTER, ATTACK, ACTION_TYPE} = require("../enum");
 
 class SelfJusticeAction extends Action {
   constructor(from) {
     super(from);
-    this.setType(["self-justice", "control-immune", "jail-bypass", "transport-immune", "roleblock-immune"])
+    this.setType(["self-justice", ACTION_TYPE.CONTROL_IMMUNE, ACTION_TYPE.BYPASS_JAIL, ACTION_TYPE.TRANSPORT_IMMUNE, ACTION_TYPE.ROLEBLOCK_IMMUNE])
       .setAttack(ATTACK.UNSTOPPABLE)
       .setPriority(1);
     this.setTarget(from);

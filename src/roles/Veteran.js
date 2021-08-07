@@ -1,12 +1,12 @@
 const BaseRole = require("./BaseRole"),
   Action = require("../Action"),
-  {TARGET_FILTER, ATTACK, DEFENSE} = require("../enum");
+  {TARGET_FILTER, ATTACK, DEFENSE, ACTION_TYPE} = require("../enum");
 
 class CounterAttackAction extends Action {
   constructor(from, target) {
     super(from);
     this.setPriority(5)
-      .setType(["alert-response", "roleblock-immune", "control-immune", "transport-immune", "non-visit"])
+      .setType(["alert-response", ACTION_TYPE.ROLEBLOCK_IMMUNE, ACTION_TYPE.CONTROL_IMMUNE, ACTION_TYPE.TRANSPORT_IMMUNE, ACTION_TYPE.NON_VISIT])
       .setAttack(ATTACK.POWERFUL)
       .setTarget(target);
   }
@@ -17,7 +17,7 @@ class AlertAction extends Action {
     super(from);
     this.setTargetFilter(TARGET_FILTER.SELF)
       .setPriority(1)
-      .setType(["alert", "roleblock-immune", "control-immune"]);
+      .setType(["alert", ACTION_TYPE.ROLEBLOCK_IMMUNE, ACTION_TYPE.CONTROL_IMMUNE, ACTION_TYPE.NON_VISIT]);
   }
 
   execute() {

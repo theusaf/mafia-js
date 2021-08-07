@@ -1,11 +1,11 @@
 const BaseRole = require("./BaseRole"),
   Action = require("../Action"),
-  {TARGET_FILTER} = require("../enum");
+  {TARGET_FILTER, ACTION_TYPE} = require("../enum");
 
 class SeanceAction extends Action {
   constructor(from) {
     super(from);
-    this.setType(["seance", "jail-bypass", "control-immune", "roleblock-immune", "transport-immune"])
+    this.setType(["seance", ACTION_TYPE.BYPASS_JAIL, ACTION_TYPE.CONTROL_IMMUNE, ACTION_TYPE.ROLEBLOCK_IMMUNE, ACTION_TYPE.TRANSPORT_IMMUNE, ACTION_TYPE.NON_VISIT])
       .setPriority(1)
       .setTargetFilter((player, me) => {
         return TARGET_FILTER.NOT_SELF(player, me) && TARGET_FILTER.LIVING(player);

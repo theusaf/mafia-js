@@ -1,6 +1,6 @@
 const BaseRole = require("./BaseRole"),
   Action = require("../Action"),
-  {TARGET_FILTER, ATTACK} = require("../enum");
+  {TARGET_FILTER, ATTACK, ACTION_TYPE} = require("../enum");
 
 class HauntAction extends Action {
   constructor(from) {
@@ -11,7 +11,7 @@ class HauntAction extends Action {
     })
       .setCancelable(false)
       .setPriority(1)
-      .setType(["jester-haunt", "jail-bypass", "transport-immune", "roleblock-immune", "control-immune"])
+      .setType(["jester-haunt", ACTION_TYPE.BYPASS_JAIL, ACTION_TYPE.TRANSPORT_IMMUNE, ACTION_TYPE.ROLEBLOCK_IMMUNE, ACTION_TYPE.CONTROL_IMMUNE])
       .setAttack(ATTACK.UNSTOPPABLE);
     const currentLivingPlayers = Array.from(from.game.players).filter(player => player.isAlive),
       randomLivingPlayer = currentLivingPlayers[Math.floor(Math.random() * currentLivingPlayers.length)];
