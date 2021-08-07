@@ -6,9 +6,9 @@ const BaseRole = require("./BaseRole"),
 class DistractAction extends Action {
   constructor(from) {
     super(from);
-    this.setType("escort-block", ACTION_TYPE.ROLEBLOCK_IMMUNE)
+    this.setType("consort-block", ACTION_TYPE.ROLEBLOCK_IMMUNE)
       .setPriority(2)
-      .setTargetFilter((player, me) => TARGET_FILTER.LIVING(player) && TARGET_FILTER.NOT_SELF(player, me));
+      .setTargetFilter((player, me) => TARGET_FILTER.LIVING(player) && TARGET_FILTER.NOT_TEAM(player, me));
   }
 
   execute() {
@@ -22,13 +22,13 @@ class DistractAction extends Action {
   }
 }
 
-class Escort extends BaseRole {
+class Consort extends BaseRole {
   constructor(player) {
-    super(player, "Escort");
-    this.setType(["town", "support"])
-      .setTeam("town")
-      .setDescription("You are a beautiful person skilled in distraction.")
-      .setWinsWith(["town"]);
+    super(player, "Consort");
+    this.setType(["mafia", "support"])
+      .setTeam("mafia")
+      .setDescription("You are a beautiful dancer working for organized crime.")
+      .setWinsWith(["mafia"]);
   }
 
   getNightActions() {
@@ -38,4 +38,4 @@ class Escort extends BaseRole {
 
 }
 
-module.exports = Escort;
+module.exports = Consort;
