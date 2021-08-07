@@ -17,6 +17,10 @@ class HauntAction extends Action {
       randomLivingPlayer = currentLivingPlayers[Math.floor(Math.random() * currentLivingPlayers.length)];
     this.setTarget(randomLivingPlayer);
   }
+
+  execute() {
+    this.from.additionalInformation.jesterHasHaunted = true;
+  }
 }
 
 class Jester extends BaseRole {
