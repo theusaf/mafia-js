@@ -34,23 +34,53 @@ const ENUM = {
     LIVING: (player) => player.isAlive,
     DEAD: (player) => !ENUM.TARGET_FILTER.LIVING(player),
     TEAM: (player, me) => player.role.team === me.role.team,
-    NOT_TEAM: (player, me) => !ENUM.TARGET_FILTER.TEAM(player, me)
+    NOT_TEAM: (player, me) => !ENUM.TARGET_FILTER.TEAM(player, me),
+    ALIVE_NOT_SELF: (player, me) => ENUM.TARGET_FILTER.LIVING(player, me) && ENUM.TARGET_FILTER.NOT_SELF(player, me),
+    ALIVE_TEAM: (player, me) => ENUM.TARGET_FILTER.LIVING(player, me) && ENUM.TARGET_FILTER.TEAM(player, me),
+    ALIVE_NOT_TEAM: (player, me) => ENUM.TARGET_FILTER.LIVING(player, me) && ENUM.TARGET_FILTER.NOT_TEAM(player, me)
   },
-  // Currently, these are tags that have to be implemented in each role
-  // TODO: implement these tags to be built-in somehow
-  ACTION_TYPE: {
-    // Action cannot be transported
-    TRANSPORT_IMMUNE: "transport_immune",
-    // Action is a passive visit, so certain things (traps, bodyguard) do not take effect
+  ACTION_TAG: {
     PASSIVE_VISIT: "passive_visit",
-    // Action is executed, but does not actually count as a visit.
     NON_VISIT: "non_visit",
-    // Cannot be cancelled
+    BYPASS_JAIL: "bypass_jail"
+  },
+  ROLE_TAG: {
+    TRANSPORT_IMMUNE: "transport_immune",
     ROLEBLOCK_IMMUNE: "roleblock_immune",
-    // Action will still execute if target is jailed
-    BYPASS_JAIL: "bypass_jail",
-    // Cannot be controlled
-    CONTROL_IMMUNE: "control_immune"
+    CONTROL_IMMUNE: "control_immune",
+    VAMPIRE_DEATH: "dies_to_vampire"
+  },
+  TEAM: {
+    TOWN: "town",
+    MAFIA: "mafia",
+    COVEN: "coven",
+    VAMPIRE: "vampire"
+  },
+  PRIORITY: {
+    /**
+     * HIGHEST: Priority for major changes, creating new actions, swapping actions, etc.
+     */
+    HIGHEST: 1,
+    /**
+     * CANCELLERS: Priority for 'cancellers' which cancel other actions and/or create new ones.
+     */
+    CANCELLERS: 2,
+    /**
+     * STATE_CHANGERS: Priority for actions which change states (defense, douses, protecting, etc.)
+     */
+    STATE_CHANGERS: 3,
+    /**
+     * INVESTIGATIVE: Priority for actions which investigate role information.
+     */
+    INVESTIGATIVE: 4,
+    /**
+     * KILLERS: Priority for actions which deal damage or convert.
+     */
+    KILLERS: 5,
+    /**
+     * LOWEST: Priority for actions which need to wait for all other actions, or convert the role if not killed.
+     */
+    LOWEST: 6
   }
 };
 

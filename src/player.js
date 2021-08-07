@@ -3,60 +3,86 @@ const BaseRole = require("./roles/BaseRole");
 class Player {
 
   constructor(id, name) {
-    this._role = null;
 
     /**
-     * @param {Game} game The game the player is a part of.    
+     * @param {Role} role The current role of the player
+     */
+    this.role = null;
+
+    /**
+     * @param {Game} game The game the player is a part of.
      */
     this.game = null;
 
     /**
-     * The id of the player
+     * @param {String} id The id of the player
      */
     this.id = id;
+
     /**
-     * The name of the player
+     * @param {String} name The name of the player
      */
     this.name = name;
+
     /**
-     * Whether the player is alive or not
+     * @param {Boolean} isAlive Whether the player is alive or not
      */
     this.isAlive = true;
+
     /**
-     * The will of the player
+     * @param {String} finalWill The will of the player
      */
     this.finalWill = "";
+
     /**
-     * The death note of the player
+     * @param {String} deathNote The death note of the player
      */
     this.deathNote = "";
+
+    /**
+     * @param {Object} effectData Information used by roles to store information, such as doused, poisoned, etc.
+     */
+    this.effectData = {};
+
+    /**
+     * @param {Action[]} actions The list of actions the player has/can do
+     */
+    this.actions = [];
+
+    /**
+     * @param {Action[]} targetActions The list of actions taken upon the player.
+     */
+    this.targetActions = [];
+
+    /**
+     * @param {Message[]} messages The list of messages received after the night.
+     */
+    this.messages = [];
+  }
+
+  sendMessage() {}
+
+  receiveMessage() {}
+
+  whisper() {}
+
+  /**
+   * isAlive - Returns whether the player is alive.
+   *
+   * @return {Boolean} true if alive, false if dead
+   */
+  isAlive() {
+    return this.isAlive;
   }
 
   /**
-   * set role - This setter does some stuff when a role is changed.
+   * isDead - Returns whether the player is dead.
    *
-   * @param {BaseRole} role The role to set
+   * @return {Boolean} true if dead, false if alive
    */
-  set role(role) {
-    if (!(role instanceof BaseRole)) {
-      throw new TypeError("The role being set must be of type BaseRole or a child class");
-    }
-    const originalRole = this._role || {additionalInformation: {}},
-      {additionalInformation} = originalRole;
-    Object.assign(role.additionalInformation, additionalInformation);
-    this._role = role;
+  isDead() {
+    return !this.isAlive();
   }
-
-  /**
-   * get role - gets this player's role.
-   *
-   * @return {BaseRole} This player's role
-   */
-  get role() {
-    return this._role;
-  }
-
-  setGame(game) {this.game = game;}
 
 }
 module.exports = Player;
