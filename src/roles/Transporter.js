@@ -1,6 +1,5 @@
 const BaseRole = require("./BaseRole"),
   Action = require("../Action"),
-  Detail = require("../Detail"),
   {TARGET_FILTER} = require("../enum");
 
 class TransportAction extends Action {
@@ -66,8 +65,8 @@ class Transporter extends BaseRole {
   }
 
   getNightActions() {
-    const action1 = new TransportAction(this),
-      action2 = new TransportAction2(this, action1);
+    const action1 = new TransportAction(this.player),
+      action2 = new TransportAction2(this.player, action1);
     return [action1, action2];
   }
 

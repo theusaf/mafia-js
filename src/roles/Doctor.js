@@ -34,7 +34,7 @@ class HealAction extends Action {
       }
     }
     if (this.isSelfHeal) {
-      this.additionalInformation.doctorSelfHealsLeft--;
+      this.from.additionalInformation.doctorSelfHealsLeft--;
     }
   }
 
@@ -56,9 +56,9 @@ class Doctor extends BaseRole {
   }
 
   getNightActions() {
-    const actions = [new HealAction(this)];
+    const actions = [new HealAction(this.player)];
     if (this.additionalInformation.doctorSelfHealsLeft > 0) {
-      actions.push(new HealAction(this, true))
+      actions.push(new HealAction(this.player, true))
     }
     return actions;
   }
