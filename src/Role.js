@@ -2,12 +2,12 @@ const {DEFENSE} = require("enum");
 
 class Role {
 
-  constructor(player, name) {
+  constructor(name) {
 
     /**
      * @param {Player} player The player object the role is attached to.
      */
-    this.player = player;
+    this.player = null;
 
     /**
      * @param {String} description The description of this role.
@@ -129,11 +129,12 @@ class Role {
    */
   afterVotingSetup() {}
 
-  setDefense(defense=0) {this.defense = defense; return this;}
+  setDefense(defense=0) {this.data.defense = defense; return this;}
   setType(type) {if(Array.isArray(type)) {this.type = type;} return this;}
   setTeam(team) {this.team = team; return this;}
   setWinsWith(type) {if(Array.isArray(type)) {this.winsWith = type;} return this;}
   setDescription(description="") {this.description = description; return this;}
+  setPlayer(player) {this.player = player; return this;}
 
 }
 

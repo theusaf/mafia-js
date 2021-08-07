@@ -35,9 +35,16 @@ class Action {
   }
 
   /**
-   * execute - Executed at the end of the night. Should return actions to add to targets.
+   * position - Executed at the end of the night. Should return actions to add to targets.
    *
    * @return {Action[]}
+   */
+  position() {
+
+  }
+
+  /**
+   * execute - Run at the end of the night. Main logic, cancels, moves, changes states, adds new actions, etc.
    */
   execute() {
 

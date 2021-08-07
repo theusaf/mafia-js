@@ -31,7 +31,6 @@ class Game extends EventEmitter {
         list.push(action);
       }
     }
-    list.sort(prioritySort);
     return list;
   }
 
@@ -42,15 +41,50 @@ class Game extends EventEmitter {
   positionActions() {
     const actions = this.collectActions();
     for (const action of actions) {
-      const target = action.target;
-      target.targetActions.push(action);
+      const positionedActions = action.position();
+      positionedActions.forEach(action => target.targetActions.push(action));
     }
+  }
+
+  collectPositionedActions() {
+    const list = [];
+    for (let key in this.players) {
+      const player = this.players[key],
+        {targetActions:actions} = player;
+      for (const action of actions) {
+        list.push(action);
+      }
+    }
+    actions.sort(prioritySort);
+    return list;
   }
 
   /**
    * executeActions - The final phase, executes, cancels, moves, and changes states
    */
-  executeActions() {}
+  executeActions() {
+    const ASSUME_ERROR_NUMBER = 500,
+      actions = this.collectPositionedActions(),
+      alreadyExecutedActions = new Set,
+      originalLength = actions.length;
+    let index = 0,
+      oldLength = actions.length;
+    while (index < actions.length) {
+      const action = actions[index];
+      if (alreadyExecutedActions.has(action)) {index++; continue;}
+      action.execute();
+      alreadyExecutedActions.add(action);
+      if (actions.length !== oldLength) {
+        index = 0;
+        oldLength = actions.length;
+      } else {
+        index++;
+      }
+      if (actions.length >= originalLength + ASSUME_ERROR_NUMBER) {
+        throw new RangeError("Detected an infinite loop, check roles which create or cancel actions.");
+      }
+    }
+  }
 
   checkVictors() {}
 
