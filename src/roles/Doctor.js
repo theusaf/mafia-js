@@ -1,15 +1,34 @@
 const BaseRole = require("./BaseRole"),
   Action = require("../Action"),
-  {TARGET_FILTER} = require("../enum");
+  {TARGET_FILTER, ATTACK, DEFENSE} = require("../enum");
 
 class HealAction extends Action {
 
-  constructor(isSelfHeal) {
-    super();
+  constructor(from, isSelfHeal) {
+    super(from);
     if (isSelfHeal) {
       this.setTargetFilter(TARGET_FILTER.SELF);
     }
-    this.setType(["heal"]);
+    this.setType(["heal"])
+      .setPriority(3);
+  }
+
+  /**
+   * execute - Adds a "heal" detail to attacks on the target
+   */
+  execute() {
+    const game = this.from.game,
+      actions = this.getActionsAgainstTarget(game.getActions(), true);
+    for (const action of actions) {
+      const attack = action.attack;
+      if (attack > ATTACK.NONE) {
+        action.addDetail({
+          detail: "heal",
+          defenseValue: DEFENSE.POWERFUL,
+          from: this.from
+        });
+      }
+    }
   }
 
 };
@@ -30,7 +49,7 @@ class Doctor extends BaseRole {
   }
 
   getNightActions() {
-    return [new HealAction, new HealAction(true)];
+    return [new HealAction(this), new HealAction(this, true)];
   }
 
 }

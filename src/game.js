@@ -7,11 +7,20 @@ class Game extends EventEmitter {
     this.date = 0;
     this.stage = 0;
     this.players = {};
+    this.actions = new Set;
+    this.nightMessages = [];
   }
 
   progressStage() {}
 
   checkVictors() {}
+
+  getActions() {
+    return Array.from(this.actions);
+  }
+
+  addAction() {}
+  removeAction() {}
 
 }
 

@@ -4,9 +4,32 @@ class Player {
 
   constructor(id, name) {
     this._role = null;
+
+    /**
+     * @param {Game} game The game the player is a part of.    
+     */
+    this.game = null;
+
+    /**
+     * The id of the player
+     */
     this.id = id;
+    /**
+     * The name of the player
+     */
     this.name = name;
+    /**
+     * Whether the player is alive or not
+     */
     this.isAlive = true;
+    /**
+     * The will of the player
+     */
+    this.finalWill = "";
+    /**
+     * The death note of the player
+     */
+    this.deathNote = "";
   }
 
   /**
@@ -32,6 +55,8 @@ class Player {
   get role() {
     return this._role;
   }
+
+  setGame(game) {this.game = game;}
 
 }
 module.exports = Player;

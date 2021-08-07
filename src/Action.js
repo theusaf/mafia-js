@@ -6,7 +6,12 @@ const {TARGET_FILTER, ATTACK, ACTION_EXECUTE} = require("./enum");
  * - Only executed if target is selected
  */
 class Action {
-  constructor() {
+  constructor(from) {
+    /**
+     * @param {Player} from The player that initiated this Action.
+     */
+    this.from = from;
+
     /**
      * @param {Function} targetFilter The filter to select targets
      * - Takes a player and a me parameter, of type Player
@@ -42,6 +47,49 @@ class Action {
     this.details = [];
   }
 
+  /**
+   * execute - Run at the time specified in executeAt
+   * - Only executes if a target is selected
+   *
+   * If you need to execute if no target is selected, use BaseRole's afterNightSetup()
+   */
+  execute() {}
+
+  /**
+   * setTarget - Sets the target of the action
+   */
+  setTarget(player) {
+    this.target = player;
+    if (this.executeAt === ACTION_EXECUTE.IMMEDIATELY) {
+      execute();
+    }
+  }
+
+  /**
+   * addDetail - Adds a detail
+   *
+   * @param  {Object} detail The details
+   */
+  addDetail(detail) {
+    this.details.push(detail);
+  }
+
+  /**
+   * getActionsAgainstTarget - Gets the actions on the target
+   *
+   * @param  {Action[]} actions   The full list of actions
+   * @param  {Boolean} ignoreSelf Whether to ignore this action in the returned list
+   * @return {Action[]}           The actions against the target
+   */
+  getActionsAgainstTarget(actions, ignoreSelf) {
+    return actions.filter(action => {
+      if (ignoreSelf) {
+        return action.target === this.target && action !== this;
+      }
+      return action.target === this.target;
+    });
+  }
+
   setTargetFilter(targetFilter) {
     if (typeof targetFilter !== "function") {
       throw new TypeError("targetFilter must be a function.");
@@ -56,20 +104,6 @@ class Action {
   }
   setAttack(attack) {this.attack = attack; return this;}
   setExecuteAt(executeAt) {this.executeAt = executeAt; return this;}
-
-  /**
-   * execute - Run at the time specified in executeAt
-   */
-  execute() {}
-
-  /**
-   * setTarget - Sets the target of the action
-   */
-  setTarget(player) {
-    this.target = player;
-    if (this.executeAt === ACTION_EXECUTE.IMMEDIATELY) {
-      execute();
-    }
-  }
+  setPriority(priority) {this.priority = priority; return this;}
 
 }
