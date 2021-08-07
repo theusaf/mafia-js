@@ -1,5 +1,3 @@
-const BaseRole = require("./roles/BaseRole");
-
 class Player {
 
   constructor(id, name) {

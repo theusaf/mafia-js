@@ -1,3 +1,5 @@
+const {ATTACK, TARGET_FILTER} = require("./enum");
+
 class Action {
   constructor(initiator) {
 
@@ -22,9 +24,14 @@ class Action {
     this.attack = ATTACK.NONE;
 
     /**
-     * @param {String[]} tags Various tags    
+     * @param {String[]} tags Various tags
      */
     this.tags = [];
+
+    /**
+     * @param {Object[]} cancels The cancel reasons for this action
+     */
+    this.cancels = [];
   }
 
   /**
@@ -36,13 +43,24 @@ class Action {
 
   }
 
-  getTargetFilter() {}
+  isValidTarget(target) {
+    return TARGET_FILTER.NONE(target);
+  }
 
-  setTarget(target) {}
+  setTarget(target) {
+    this.target = target;
+    return this;
+  }
 
   notPerformed() {}
 
-  cancel(reason, cancelAction) {}
+  cancel(reason, cancelAction) {
+    const data = {
+      description: reason,
+      action: cancelAction
+    };
+    this.cancels.push(data);
+  }
 }
 
 module.exports = Action;

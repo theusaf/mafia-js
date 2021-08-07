@@ -4,7 +4,7 @@ const EventEmitter = require("events"),
 
 class Game extends EventEmitter {
 
-  constructor(options) {
+  constructor() {
     super();
     this.date = 0;
     this.stage = STAGE.GAME_START;
