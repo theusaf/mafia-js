@@ -3,16 +3,16 @@ const BaseRole = require("./BaseRole"),
   {TARGET_FILTER} = require("../enum");
 
 class CopiedAction extends Action {
-  constructor(from, reviveAction) {
+  constructor(from) {
     super(from);
-    this.reviveAction = reviveAction;
     this.setTargetFilter(TARGET.LIVING);
   }
 }
 
 class ReviveAction extends Action {
-  constructor(from) {
+  constructor(from, copiedAction) {
     super(from);
+    this.copiedAction = copiedAction;
     this.setTargetFilter(player => {
         return TARGET_FILTER.TEAM(player) && TARGET_FILTER.DEAD(player) && !["Trapper", "Jailor", "Veteran", "Mayor", "Medium", "Transporter", "Retributionist"].includes(player.role.name);
       })
@@ -35,8 +35,8 @@ class ReviveAction extends Action {
       {priority} = action2;
     if (priority === 1) {return;}
     action2.from = this.from;
-    const otherAction = actions.find(action => action.from === this.from && action instanceof CopiedAction);
-    if (!otherAction) {return;}
+    const otherAction = this.copiedAction;
+    if (!otherAction.target) {return;}
     action2.target = otherAction.target;
     game.addAction(action2); // TODO: ensuure this works
   }
@@ -57,9 +57,12 @@ class Retributionist extends BaseRole {
 
   getNightActions() {
     if (!this.player.isAlive) {return;}
+    const copiedAction = new CopiedAction(this.player),
+      reviveAction = new ReviveAction(this.player, copiedAction);
     return [
-      new
-    ]
+      reviveAction,
+      copiedAction
+    ];
   }
 
 }
