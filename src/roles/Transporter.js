@@ -45,7 +45,7 @@ class TransportAction2 extends TransportAction {
     this.setTargetFilter((player, me) => {
       return TARGET_FILTER.LIVING(player)
         && player !== this.firstAction.target;
-    })
+    });
   }
 
   execute() {}

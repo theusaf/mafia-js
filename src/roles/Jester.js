@@ -6,9 +6,9 @@ class HauntAction extends Action {
   constructor(from) {
     super(from);
     this.setTargetFilter((player, me) => {
-        // TODO: implement targetting abstains and guilties, but not innos
-        return TARGET_FILTER.NOT_SELF(player, me) && TARGET_FILTER.LIVING(player);
-      })
+      // TODO: implement targetting abstains and guilties, but not innos
+      return TARGET_FILTER.NOT_SELF(player, me) && TARGET_FILTER.LIVING(player);
+    })
       .setCancelable(false)
       .setPriority(1)
       .setType(["jester-haunt", "jail-bypass", "transport-immune", "roleblock-immune", "control-immune"])

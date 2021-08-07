@@ -16,8 +16,8 @@ class ShootAction extends Action {
   constructor(from) {
     super(from);
     this.setTargetFilter((player, me) => {
-        return TARGET_FILTER.NOT_SELF(player, me) && TARGET_FILTER.LIVING(player);
-      })
+      return TARGET_FILTER.NOT_SELF(player, me) && TARGET_FILTER.LIVING(player);
+    })
       .setType(["vigilante-shoot"])
       .setPriority(5)
       .setAttack(ATTACK.BASIC);

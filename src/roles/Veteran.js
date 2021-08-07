@@ -6,7 +6,7 @@ class CounterAttackAction extends Action {
   constructor(from, target) {
     super(from);
     this.setPriority(5)
-      .setType(["alert-response", "roleblock-immune", "control-immune", "transport-immune"])
+      .setType(["alert-response", "roleblock-immune", "control-immune", "transport-immune", "no-visit"])
       .setAttack(ATTACK.POWERFUL)
       .setTarget(target);
   }

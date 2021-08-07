@@ -38,7 +38,7 @@ class HealAction extends Action {
     }
   }
 
-};
+}
 
 class Doctor extends BaseRole {
   constructor(player) {
@@ -58,7 +58,7 @@ class Doctor extends BaseRole {
     if (!this.player.isAlive) {return;}
     const actions = [new HealAction(this.player)];
     if (this.additionalInformation.doctorSelfHealsLeft > 0) {
-      actions.push(new HealAction(this.player, true))
+      actions.push(new HealAction(this.player, true));
     }
     return actions;
   }

@@ -14,7 +14,10 @@ class ReviveAction extends Action {
     super(from);
     this.copiedAction = copiedAction;
     this.setTargetFilter(player => {
-        return TARGET_FILTER.TEAM(player) && TARGET_FILTER.DEAD(player) && !["Trapper", "Jailor", "Veteran", "Mayor", "Medium", "Transporter", "Retributionist"].includes(player.role.name);
+        return TARGET_FILTER.TEAM(player)
+          && TARGET_FILTER.DEAD(player)
+          && !["Trapper", "Jailor", "Veteran", "Mayor", "Medium", "Transporter", "Retributionist"].includes(player.role.name)
+          && !this.from.additionalInformation.retributionistTargetsUsed.includes(player);
       })
       .setPriority(1)
       .setType(["retribute", "transport-immune", "roleblock-immune", "control-immune"]);
@@ -33,12 +36,13 @@ class ReviveAction extends Action {
     }
     const [action2] = actions,
       {priority} = action2;
-    if (priority === 1) {return;}
+    if (priority <= 1) {return;}
     action2.from = this.from;
     const otherAction = this.copiedAction;
     if (!otherAction.target) {return;}
     action2.target = otherAction.target;
-    game.addAction(action2); // TODO: ensuure this works
+    game.addAction(action2);
+    this.from.additionalInformation.retributionistTargetsUsed.push(targetRole.player);
   }
 }
 
@@ -51,7 +55,7 @@ class Retributionist extends BaseRole {
       .setWinsWith(["town"]);
     this.selection.max = 1;
     this.additionalInformation = {
-      retributionistTargetsSeanced: []
+      retributionistTargetsUsed: []
     };
   }
 
