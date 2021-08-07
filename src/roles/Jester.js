@@ -11,7 +11,7 @@ class HauntAction extends Action {
       })
       .setCancelable(false)
       .setPriority(1)
-      .setType(["jester-haunt", "jail-bypass", "transport-immune"])
+      .setType(["jester-haunt", "jail-bypass", "transport-immune", "roleblock-immune", "control-immune"])
       .setAttack(ATTACK.UNSTOPPABLE);
     const currentLivingPlayers = Array.from(from.game.players).filter(player => player.isAlive),
       randomLivingPlayer = currentLivingPlayers[Math.floor(Math.random() * currentLivingPlayers.length)];

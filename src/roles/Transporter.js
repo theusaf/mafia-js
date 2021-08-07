@@ -59,8 +59,7 @@ class Transporter extends BaseRole {
       .setTeam("town")
       .setDescription("Your job is to transport people without asking any questions.")
       .setWinsWith([
-        "town",
-        ["neutral", "benign"]
+        "town"
       ]);
   }
 

@@ -47,8 +47,7 @@ class Doctor extends BaseRole {
       .setTeam("town")
       .setDescription("You are a surgeon skilled in trauma care who secretly heals people.")
       .setWinsWith([
-        "town",
-        ["neutral", "benign"]
+        "town"
       ]);
     this.additionalInformation = {
       doctorSelfHealsLeft: 1

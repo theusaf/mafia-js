@@ -47,8 +47,7 @@ class Vigilante extends BaseRole {
       .setTeam("town")
       .setDescription("You are a militant cop who takes the law into your own hands.")
       .setWinsWith([
-        "town",
-        ["neutral", "benign"]
+        "town"
       ]);
     this.additionalInformation = {
       vigilanteBulletsLeft: 3,

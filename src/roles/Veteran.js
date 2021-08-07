@@ -42,8 +42,7 @@ class Veteran extends BaseRole {
       .setTeam("town")
       .setDescription("You are a paranoid war hero who will shoot anyone who visits you.")
       .setWinsWith([
-        "town",
-        ["neutral", "benign"]
+        "town"
       ]);
     this.selection.max = 1;
     this.additionalInformation = {
