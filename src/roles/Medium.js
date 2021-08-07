@@ -19,7 +19,7 @@ class SeanceAction extends Action {
 
 class Medium extends BaseRole {
   constructor(player) {
-    super(player, "Doctor");
+    super(player, "Medium");
     this.setType(["town", "protective"])
       .setTeam("town")
       .setDescription("You are a secret psychic who talks with the dead.")
