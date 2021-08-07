@@ -34,15 +34,27 @@ const ENUM = {
     LIVING: (player) => player.isAlive,
     DEAD: (player) => !ENUM.TARGET_FILTER.LIVING(player),
     TEAM: (player, me) => player.role.team === me.role.team,
-    NOT_TEAM: (player, me) => !ENUM.TARGET_FILTER.TEAM(player, me)
+    NOT_TEAM: (player, me) => !ENUM.TARGET_FILTER.TEAM(player, me),
+    ALIVE_NOT_SELF: (player, me) => ENUM.TARGET_FILTER.LIVING(player, me) && ENUM.TARGET_FILTER.NOT_SELF(player, me),
+    ALIVE_TEAM: (player, me) => ENUM.TARGET_FILTER.LIVING(player, me) && ENUM.TARGET_FILTER.TEAM(player, me),
+    ALIVE_NOT_TEAM: (player, me) => ENUM.TARGET_FILTER.LIVING(player, me) && ENUM.TARGET_FILTER.NOT_TEAM(player, me)
   },
-  TAGS: {
-    TRANSPORT_IMMUNE: "transport_immune",
+  ACTION_TAG: {
     PASSIVE_VISIT: "passive_visit",
     NON_VISIT: "non_visit",
+    BYPASS_JAIL: "bypass_jail"
+  },
+  ROLE_TAG: {
+    TRANSPORT_IMMUNE: "transport_immune",
     ROLEBLOCK_IMMUNE: "roleblock_immune",
-    BYPASS_JAIL: "bypass_jail",
-    CONTROL_IMMUNE: "control_immune"
+    CONTROL_IMMUNE: "control_immune",
+    VAMPIRE_DEATH: "dies_to_vampire"
+  },
+  TEAM: {
+    TOWN: "town",
+    MAFIA: "mafia",
+    COVEN: "coven",
+    VAMPIRE: "vampire"
   },
   PRIORITY: {
     /**

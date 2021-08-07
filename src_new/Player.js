@@ -60,6 +60,12 @@ class Player {
     this.messages = [];
   }
 
+  sendMessage() {}
+
+  receiveMessage() {}
+
+  whisper() {}
+
   /**
    * isAlive - Returns whether the player is alive.
    *

@@ -31,6 +31,11 @@ class Role {
     };
 
     /**
+     * @param {Object} modifiedStats This object is used during action execution for some investigative roles
+     */
+    this.modifiedStats = {};
+
+    /**
      * @param {String} attack The team of this role. "none" if on no team.
      */
     this.team = "none";
@@ -113,6 +118,11 @@ class Role {
    * afterNightSetup - Runs after all night actions have been completed.
    */
   afterNightSetup() {}
+
+  /**
+   * afterDeathSetup - Runs after getting killed during the night.
+   */
+  afterDeathSetup() {}
 
   /**
    * afterVotingSetup - Runs after a player is eliminated in the voting stage.

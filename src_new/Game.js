@@ -9,6 +9,7 @@ class Game extends EventEmitter {
     this.date = 0;
     this.stage = STAGE.GAME_START;
     this.players = {};
+    this.voteInformation = {};
   }
 
   progressStage() {}
@@ -40,6 +41,10 @@ class Game extends EventEmitter {
    */
   positionActions() {
     const actions = this.collectActions();
+    for (const action of actions) {
+      const target = action.target;
+      target.targetActions.push(action);
+    }
   }
 
   /**
