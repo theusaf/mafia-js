@@ -39,6 +39,10 @@ class Action {
      * - Determines execute order, not overwrite order.
      */
     this.priority = 6;
+    /**
+     * @param {Boolean} cancelable Whether this action can be cancelled by the initiator.
+     */
+    this.cancelable = true;
 
     /**
      * @param {Object[]} details This is used to store information about actions against this action.
@@ -127,5 +131,6 @@ class Action {
   setAttack(attack) {this.attack = attack; return this;}
   setExecuteAt(executeAt) {this.executeAt = executeAt; return this;}
   setPriority(priority) {this.priority = priority; return this;}
+  setCancelable(cancelable) {this.cancelable = cancelable; return this;}
 
 }

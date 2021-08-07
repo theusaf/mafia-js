@@ -56,6 +56,7 @@ class Doctor extends BaseRole {
   }
 
   getNightActions() {
+    if (!this.player.isAlive) {return;}
     const actions = [new HealAction(this.player)];
     if (this.additionalInformation.doctorSelfHealsLeft > 0) {
       actions.push(new HealAction(this.player, true))

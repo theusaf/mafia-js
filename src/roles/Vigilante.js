@@ -27,7 +27,7 @@ class ShootAction extends Action {
     this.from.additionalInformation.vigilanteBulletsLeft--;
   }
 
-  // TODO: implement.
+  // TODO: implement successful shot
   isSuccessful() {}
 
   onSuccess() {
@@ -57,6 +57,7 @@ class Vigilante extends BaseRole {
   }
 
   getNightActions() {
+    if (!this.player.isAlive) {return;}
     if (this.additionalInformation.vigilanteSelfJustice) {
       this.getJailActions();
     } else if(this.additionalInformation.vigilanteBulletsLeft > 0) {

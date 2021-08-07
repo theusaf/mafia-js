@@ -65,6 +65,7 @@ class Transporter extends BaseRole {
   }
 
   getNightActions() {
+    if (!this.player.isAlive) {return;}
     const action1 = new TransportAction(this.player),
       action2 = new TransportAction2(this.player, action1);
     return [action1, action2];

@@ -52,6 +52,7 @@ class Veteran extends BaseRole {
   }
 
   getNightActions() {
+    if (!this.player.isAlive) {return;}
     if (this.additionalInformation.veteranAlertsLeft > 0) {
       return [new AlertAction(this.player)];
     }
