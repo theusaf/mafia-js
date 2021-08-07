@@ -72,4 +72,4 @@ class Transporter extends BaseRole {
 
 }
 
-module.exports = Doctor;
+module.exports = Transporter;

@@ -59,4 +59,4 @@ class Veteran extends BaseRole {
 
 }
 
-module.exports = Doctor;
+module.exports = Veteran;

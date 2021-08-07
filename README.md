@@ -1,3 +1,3 @@
 TODO:
-
-Add messages support
+- Add messages support
+- More more things into enum
