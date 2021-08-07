@@ -18,8 +18,8 @@ class AmbushAction extends Action {
 
   execute() {
     const game = this.from.game,
-      actions = game.getActions();
-
+      actions = game.getActions(),
+      
   }
 }
 

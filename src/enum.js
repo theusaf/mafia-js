@@ -33,6 +33,19 @@ const ENUM = {
     DEAD: (player) => !ENUM.TARGET_FILTER.LIVING(player),
     TEAM: (player, me) => player.role.team === me.role.team,
     NOT_TEAM: (player, me) => !ENUM.TARGET_FILTER.TEAM(player, me)
+  },
+  // Currently, these are tags that have to be implemented in each role
+  ACTION_TYPE: {
+    // Action cannot be transported
+    TRANSPORT_IMMUNE: "transport_immune",
+    // Action is a passive visit, so certain things (traps, bodyguard) do not take effect
+    PASSIVE_VISIT: "passive_visit",
+    // Action is executed, but does not actually count as a visit.
+    NON_VISIT: "non_visit",
+    // Cannot be cancelled
+    ROLEBLOCK_IMMUNE: "roleblock_immune",
+    // Action will still execute if target is jailed
+    BYPASS_JAIL
   }
 };
 
