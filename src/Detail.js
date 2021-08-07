@@ -2,6 +2,9 @@ class Detail {
   constructor(detail, from, data) {
     /**
      * @param {String} detail The detail name
+     *
+     * Special ones:
+     * - cancel: prevents the action's execute from running
      */
     this.detail = detail;
     /**

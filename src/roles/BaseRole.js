@@ -37,6 +37,9 @@ class BaseRole {
     this.winsWith = ["*"];
     /**
      * @param {Object} additionalInformation Extra information for specific interactions. This is copied over if the role is replaced.
+     *
+     * Some to note:
+     * jailed: (boolean) - set to true when jailed
      */
     this.additionalInformation = {};
 

@@ -90,11 +90,27 @@ class Action {
     });
   }
 
+
   /**
-   * onSuccessfulAttack - executed when the attack is successful.
-   * - Action's attack > target's defense
+   * isSuccessful - executed after execute(). Checks if the action is successful.
+   *
+   * @return {Boolean} Whether the action is successful.
    */
-  onSuccessfulAttack() {}
+  isSuccessful() {return true;}
+
+  /**
+   * onSuccess - executed after execute(), executed if the action isSuccessful().
+   */
+  onSuccess() {}
+
+  /**
+   * isCancelled - returns whether the action was cancelled. If it is cancelled, it will not execute.
+   *
+   * @return {Boolean} Whether it is cancelled or not.
+   */
+  isCancelled() {
+    return !!this.details.find(detail => detail.detail === "cancel");
+  }
 
   setTargetFilter(targetFilter) {
     if (typeof targetFilter !== "function") {

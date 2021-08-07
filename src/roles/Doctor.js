@@ -7,6 +7,7 @@ class HealAction extends Action {
 
   constructor(from, isSelfHeal) {
     super(from);
+    this.isSelfHeal = isSelfHeal;
     if (isSelfHeal) {
       this.setTargetFilter(TARGET_FILTER.SELF);
     }
@@ -32,6 +33,9 @@ class HealAction extends Action {
         );
       }
     }
+    if (this.isSelfHeal) {
+      this.additionalInformation.doctorSelfHealsLeft--;
+    }
   }
 
 };
@@ -41,7 +45,7 @@ class Doctor extends BaseRole {
     super(player, "Doctor");
     this.setType(["town", "protective"])
       .setTeam("town")
-      .setDescription("a surgeon skilled in trauma care who secretly heals people.")
+      .setDescription("You are a surgeon skilled in trauma care who secretly heals people.")
       .setWinsWith([
         "town",
         ["neutral", "benign"]
@@ -52,7 +56,11 @@ class Doctor extends BaseRole {
   }
 
   getNightActions() {
-    return [new HealAction(this), new HealAction(this, true)];
+    const actions = [new HealAction(this)];
+    if (this.additionalInformation.doctorSelfHealsLeft > 0) {
+      actions.push(new HealAction(this, true))
+    }
+    return actions;
   }
 
 }
