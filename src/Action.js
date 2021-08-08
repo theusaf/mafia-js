@@ -40,15 +40,13 @@ class Action {
    * @return {Action[]}
    */
   position() {
-
+    return [this];
   }
 
   /**
    * execute - Run at the end of the night. Main logic, cancels, moves, changes states, adds new actions, etc.
    */
-  execute() {
-
-  }
+  execute() {}
 
   isValidTarget(target) {
     return TARGET_FILTER.NONE(target);
@@ -59,7 +57,9 @@ class Action {
     return this;
   }
 
-  notPerformed() {}
+  notPerformed() {
+    return !this.target;
+  }
 
   cancel(reason, cancelAction) {
     const data = {

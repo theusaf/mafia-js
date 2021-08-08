@@ -1,11 +1,84 @@
-const Role = require("../Role");
+const Role = require("../Role"),
+  Action = require("../Action"),
+  {TEAM, ROLE_TAG, ACTION_TAG, TARGET_FILTER} = require("../enum");
 
 class Transporter extends Role {
 
   constructor() {
     super("Transporter");
+    this.setDescription("Your job is to transport people without asking any questions.");
+    this.setTeam(TEAM.TOWN);
+    this.setType(["town", "support"]);
+    this.setTags([ROLE_TAG.ROLEBLOCK_IMMUNE, ROLE_TAG.CONTROL_IMMUNE]);
   }
 
-  getNightActions() {}
+  getNightActions() {
+    const target = new TransportTarget(this.player),
+      main = new TransportAction(this.player, target);
+    target.firstTransport = main;
+    return [[main, target]];
+  }
 
 }
+
+class TransportAction extends Action {
+  constructor(initiator, transportAction2) {
+    super(initiator);
+    this.secondTransport = transportAction2;
+    this.tags.push(ACTION_TAG.TRANSPORT_IMMUNE);
+  }
+
+  position() {
+    return [this, this.secondTransport];
+  }
+
+  execute() {
+    const target1 = this.target,
+      target2 = this.secondTransport.target,
+      actions1 = target1.targetActions.filter(action => {
+        return action !== this
+          && !action.tags.includes(ACTION_TAG.TRANSPORT_IMMUNE);
+      }),
+      actions2 = target2.targetActions.filter(action => {
+        return action !== this.secondTransport
+          && !action.tags.includes(ACTION_TAG.TRANSPORT_IMMUNE);
+      });
+      // begin swapping
+      actions1.forEach(action => {
+        action.target = target2;
+        target1.delete(action);
+        target2.add(action);
+      });
+      actions2.forEach(action => {
+        action.target = target1;
+        target2.delete(action);
+        target1.add(action);
+      });
+  }
+
+  isValidTarget(target) {
+    return TARGET_FILTER.LIVING(target) && this.secondTransport.target !== target;
+  }
+
+  notPerformed() {
+    return !this.target || !transportAction2.target;
+  }
+}
+
+class TransportTarget extends Action {
+  constructor(initiator) {
+    super(initiator);
+    this.tags.push(ACTION_TAG.TRANSPORT_IMMUNE);
+    this.firstTransport = null;
+  }
+
+  isValidTarget(target) {
+    return TARGET_FILTER.LIVING(target) && this.firstTransport.target !== target;
+  }
+
+  notPerformed() {
+    return true;
+  }
+}
+
+module.exports = Transporter;

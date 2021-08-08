@@ -50,12 +50,12 @@ class Player {
     /**
      * @param {Action[]} targetActions The list of actions taken upon the player.
      */
-    this.targetActions = [];
+    this.targetActions = new Set;
 
     /**
      * @param {Message[]} messages The list of messages received after the night.
      */
-    this.messages = [];
+    this.messages = new Set;
   }
 
   sendMessage() {}

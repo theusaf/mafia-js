@@ -42,10 +42,10 @@ const ENUM = {
   ACTION_TAG: {
     PASSIVE_VISIT: "passive_visit",
     NON_VISIT: "non_visit",
-    BYPASS_JAIL: "bypass_jail"
+    BYPASS_JAIL: "bypass_jail",
+    TRANSPORT_IMMUNE: "transport_immune"
   },
   ROLE_TAG: {
-    TRANSPORT_IMMUNE: "transport_immune",
     ROLEBLOCK_IMMUNE: "roleblock_immune",
     CONTROL_IMMUNE: "control_immune",
     VAMPIRE_DEATH: "dies_to_vampire"
