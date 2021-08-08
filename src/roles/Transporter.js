@@ -43,17 +43,17 @@ class TransportAction extends Action {
         return action !== this.secondTransport
           && !action.tags.includes(ACTION_TAG.TRANSPORT_IMMUNE);
       });
-      // begin swapping
-      actions1.forEach(action => {
-        action.target = target2;
-        target1.delete(action);
-        target2.add(action);
-      });
-      actions2.forEach(action => {
-        action.target = target1;
-        target2.delete(action);
-        target1.add(action);
-      });
+    // begin swapping
+    actions1.forEach(action => {
+      action.target = target2;
+      target1.delete(action);
+      target2.add(action);
+    });
+    actions2.forEach(action => {
+      action.target = target1;
+      target2.delete(action);
+      target1.add(action);
+    });
   }
 
   isValidTarget(target) {
