@@ -50,7 +50,8 @@ const ENUM = {
   ROLE_TAG: {
     VAMPIRE_DEATH: "dies_to_vampire",
     ROLEBLOCK_IMMUNE: "roleblock_immune",
-    CONTROL_IMMUNE: "control_immune"
+    CONTROL_IMMUNE: "control_immune",
+    DETECTION_IMMUNE: "detection_immune"
   },
   TEAM: {
     TOWN: "town",

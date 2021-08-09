@@ -1,8 +1,8 @@
-const Role = require("../Role"),
+const NeutralInnocentRole = require("../NeutralInnocentRole"),
   Action = require("../Action"),
   {TEAM, ROLE_TAG, ACTION_TAG, TARGET_FILTER, ATTACK, PRIORITY, VOTE} = require("../enum");
 
-class Jester extends Role {
+class Jester extends NeutralInnocentRole {
   constructor() {
     super("Jester");
     this.setDescription("You are a crazed lunatic whose life goal is to be publicly executed.");

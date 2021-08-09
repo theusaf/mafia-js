@@ -1,4 +1,4 @@
-const {ATTACK, TARGET_FILTER, PRIORITY} = require("./enum");
+const {ATTACK, TARGET_FILTER, PRIORITY, ACTION_EXECUTE} = require("./enum");
 
 class Action {
   constructor(initiator) {
@@ -37,6 +37,11 @@ class Action {
      * @param {Set<Object>} cancels The cancel reasons for this action
      */
     this.cancels = new Set;
+
+    /**
+     * @param {Number} executeAt When the action should be executed.    
+     */
+    this.executeAt = ACTION_EXECUTE.NIGHT_END;
   }
 
   /**

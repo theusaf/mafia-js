@@ -1,12 +1,11 @@
-const Role = require("../Role"),
+const TownRole = require("../Role"),
   Action = require("../Action"),
   {TEAM, ROLE_TAG, ACTION_TAG, TARGET_FILTER, ATTACK, PRIORITY} = require("../enum");
 
-class Vigilante extends Role {
+class Vigilante extends TownRole {
   constructor() {
     super("Vigilante");
     this.setDescription("You are a militant cop who takes the law into your own hands.");
-    this.setTeam(TEAM.TOWN);
     this.setType(["town", "killing"]);
     this.additionalInformation = {
       bulletsLeft: 3,
