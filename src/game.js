@@ -9,7 +9,17 @@ class Game extends EventEmitter {
     this.date = 0;
     this.stage = STAGE.GAME_START;
     this.players = {};
-    this.voteInformation = {};
+    this.voteInformation = {
+      votedTarget: null,
+      /**
+       * @param {Object[]} votes Vote information
+       * {
+       *   voter: Player,
+       *   vote: -1, 0, 1
+       * }
+       */
+      votes: []
+    };
   }
 
   progressStage() {}

@@ -84,6 +84,11 @@ const ENUM = {
      * LOWEST: Priority for actions which need to wait for all other actions, or convert the role if not killed.
      */
     LOWEST: 6
+  },
+  VOTE: {
+    INNOCENT: -1,
+    ABSTAIN: 0,
+    GUILTY: 1
   }
 };
 

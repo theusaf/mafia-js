@@ -44,6 +44,7 @@ class Oops extends Action {
     this.tags.add(ACTION_TAG.TRANSPORT_IMMUNE);
     this.tags.add(ACTION_TAG.ROLEBLOCK_IMMUNE);
     this.tags.add(ACTION_TAG.CONTROL_IMMUNE);
+    this.tags.add(ACTION_TAG.BYPASS_JAIL);
   }
 }
 
