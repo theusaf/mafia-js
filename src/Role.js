@@ -66,6 +66,11 @@ class Role {
     this.additionalInformation = {};
 
     /**
+     * @param {Boolean} shouldSeeTeam Whether the role should be able to see who their team members are    
+     */
+    this.shouldSeeTeam = false;
+
+    /**
      * @param {Boolean|String|String[]} require
      * The role(s) that must be in the game before selecting this role. Ignored if a boolean variable.
      * - if an array, only one role is needed, unless requireAll is true
