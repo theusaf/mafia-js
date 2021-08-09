@@ -35,6 +35,7 @@ class AlertAction extends Action {
       const {initiator} = action;
       initiator.targetActions.add(new AttackAction(this.initiator, initiator));
     }
+    this.initiator.role.additionalInformation.alertsRemaining--;
   }
 }
 
