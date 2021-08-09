@@ -1,6 +1,6 @@
 const Role = require("../Role"),
   Action = require("../Action"),
-  {TEAM, ROLE_TAG, ACTION_TAG, TARGET_FILTER} = require("../enum");
+  {TEAM, ROLE_TAG, ACTION_TAG, TARGET_FILTER, PRIORITY} = require("../enum");
 
 class Transporter extends Role {
 
@@ -27,6 +27,7 @@ class TransportAction extends Action {
     super(initiator);
     this.secondTransport = transportAction2;
     this.tags.add(ACTION_TAG.TRANSPORT_IMMUNE);
+    this.setPriority(PRIORITY.HIGHEST);
   }
 
   position() {

@@ -1,6 +1,6 @@
 const Role = require("../Role"),
   Action = require("../Action"),
-  {TEAM, ROLE_TAG, ACTION_TAG, TARGET_FILTER, ATTACK} = require("../enum");
+  {TEAM, ROLE_TAG, ACTION_TAG, TARGET_FILTER, ATTACK, PRIORITY} = require("../enum");
 
 class Veteran extends Role {
 
@@ -25,6 +25,7 @@ class Veteran extends Role {
 class AlertAction extends Action {
   constructor(initiator) {
     super(initiator);
+    this.setPriority(PRIORITY.HIGHEST);
   }
 
   position() {
@@ -51,7 +52,8 @@ class AttackAction extends Action {
     this.revengeAction = targetAction;
     this.tags.add(ACTION_TAG.NON_VISIT);
     this.setTarget(targetAction.initiator);
-    this.attack = ATTACK.POWERFUL;
+    this.setAttack(ATTACK.POWERFUL);
+    this.setPriority(PRIORITY.KILLERS);
   }
 
   execute() {

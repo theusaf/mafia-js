@@ -1,4 +1,4 @@
-const {ATTACK, TARGET_FILTER} = require("./enum");
+const {ATTACK, TARGET_FILTER, PRIORITY} = require("./enum");
 
 class Action {
   constructor(initiator) {
@@ -7,6 +7,11 @@ class Action {
      * @param {Player} initiator The player who initiates this action
      */
     this.initiator = initiator;
+
+    /**
+     * @param {Number} priority The priority this action takes to execute. See enum.js for more information.
+     */
+    this.priority = PRIORITY.LOWEST;
 
     /**
      * @param {Player} target The player who is the target of this action
@@ -61,6 +66,16 @@ class Action {
 
   setTarget(target) {
     this.target = target;
+    return this;
+  }
+
+  setAttack(attack) {
+    this.attack = attack;
+    return this;
+  }
+
+  setPriority(priority) {
+    this.priority = priority;
     return this;
   }
 
