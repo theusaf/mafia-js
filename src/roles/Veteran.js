@@ -27,6 +27,12 @@ class AlertAction extends Action {
     super(initiator);
   }
 
+  position() {
+    if (this.target === this.initiator) {
+      return [this];
+    }
+  }
+
   execute() {
     const revengeActions = this.initiator.targetActions.filter(action => {
       return action !== this && !action.tag.has(ACTION_TAG.NON_VISIT) && !action.isCanceled();
