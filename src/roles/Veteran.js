@@ -1,6 +1,6 @@
 const TownRole = require("../Role"),
   Action = require("../Action"),
-  {TEAM, ROLE_TAG, ACTION_TAG, TARGET_FILTER, ATTACK, PRIORITY} = require("../enum");
+  {ROLE_TAG, ACTION_TAG, TARGET_FILTER, ATTACK, PRIORITY} = require("../enum");
 
 class Veteran extends TownRole {
 
@@ -68,4 +68,4 @@ class AttackAction extends Action {
   }
 }
 
-module.exports = Transporter;
+module.exports = Veteran;

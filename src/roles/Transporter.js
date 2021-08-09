@@ -1,6 +1,6 @@
 const TownRole = require("../Role"),
   Action = require("../Action"),
-  {TEAM, ROLE_TAG, ACTION_TAG, TARGET_FILTER, PRIORITY} = require("../enum");
+  {ROLE_TAG, ACTION_TAG, TARGET_FILTER, PRIORITY} = require("../enum");
 
 class Transporter extends TownRole {
 
@@ -65,7 +65,7 @@ class TransportAction extends Action {
   }
 
   notPerformed() {
-    return !this.target || !transportAction2.target;
+    return !this.target || !this.secondTransport.target;
   }
 }
 

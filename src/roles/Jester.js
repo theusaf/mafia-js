@@ -1,6 +1,6 @@
 const NeutralInnocentRole = require("../NeutralInnocentRole"),
   Action = require("../Action"),
-  {TEAM, ROLE_TAG, ACTION_TAG, TARGET_FILTER, ATTACK, PRIORITY, VOTE} = require("../enum");
+  {ACTION_TAG, ATTACK, VOTE} = require("../enum");
 
 class Jester extends NeutralInnocentRole {
   constructor() {

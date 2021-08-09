@@ -1,6 +1,6 @@
 const TownRole = require("../TownRole"),
   Action = require("../Action"),
-  {TEAM, ROLE_TAG, ACTION_TAG, TARGET_FILTER, ATTACK, PRIORITY, ACTION_EXECUTE} = require("../enum");
+  {ACTION_TAG, TARGET_FILTER, PRIORITY, ACTION_EXECUTE} = require("../enum");
 
 class Medium extends TownRole {
   constructor() {

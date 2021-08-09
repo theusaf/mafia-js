@@ -1,5 +1,5 @@
 const EventEmitter = require("events"),
-  {STAGE} = require("./enum"),
+  {STAGE, ACTION_TAG} = require("./enum"),
   prioritySort = (a, b) => a.priority - b.priority;
 
 class Game extends EventEmitter {
@@ -38,7 +38,7 @@ class Game extends EventEmitter {
         if (action.notPerformed()) {
           continue;
         }
-        if (action.target.effectData.jailed && action.tags.) {
+        if (action.target.effectData.jailed && !action.tags.has(ACTION_TAG.BYPASS_JAIL)) {
           continue;
         }
         list.push(action);
@@ -55,7 +55,7 @@ class Game extends EventEmitter {
     const actions = this.collectActions();
     for (const action of actions) {
       const positionedActions = action.position();
-      positionedActions.forEach(action => target.targetActions.push(action));
+      positionedActions.forEach(action => action.target.targetActions.push(action));
     }
   }
 
@@ -68,7 +68,7 @@ class Game extends EventEmitter {
         list.push(action);
       }
     }
-    actions.sort(prioritySort);
+    list.sort(prioritySort);
     return list;
   }
 
@@ -77,11 +77,11 @@ class Game extends EventEmitter {
    */
   executeActions() {
     const ASSUME_ERROR_NUMBER = 500,
-      actions = this.collectPositionedActions(),
       alreadyExecutedActions = new Set,
       originalLength = actions.length;
     let index = 0,
-      oldLength = actions.length;
+      oldLength = actions.length,
+      actions = this.collectPositionedActions();
     while (index < actions.length) {
       const action = actions[index];
       if (alreadyExecutedActions.has(action)) {index++; continue;}

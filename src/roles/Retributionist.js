@@ -1,6 +1,7 @@
 const TownRole = require("../TownRole"),
   Action = require("../Action"),
-  {TEAM, ROLE_TAG, ACTION_TAG, TARGET_FILTER, ATTACK, PRIORITY, ACTION_EXECUTE} = require("../enum");
+  Player = require("../Player"),
+  {ROLE_TAG, ACTION_TAG, TARGET_FILTER, PRIORITY} = require("../enum");
 // TODO: getting results from controlled role
 class Retributionist extends TownRole {
   constructor() {
@@ -16,6 +17,9 @@ class Retributionist extends TownRole {
 
   getNightActions() {
     if (this.player.isDead()) {return;}
+    const targetAction = new RetributeTarget(this.player),
+      animateAction = new RetributeAction(this.player, targetAction);
+    return [[targetAction, animateAction]];
   }
 }
 
