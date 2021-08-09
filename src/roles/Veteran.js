@@ -39,17 +39,25 @@ class AlertAction extends Action {
     });
     for (const action of revengeActions) {
       const {initiator} = action;
-      initiator.targetActions.add(new AttackAction(this.initiator, initiator));
+      initiator.targetActions.add(new AttackAction(this.initiator, action));
     }
     this.initiator.role.additionalInformation.alertsRemaining--;
   }
 }
 
 class AttackAction extends Action {
-  constructor(initiator, target) {
+  constructor(initiator, targetAction) {
     super(initiator);
-    this.setTarget(target);
+    this.revengeAction = targetAction;
+    this.tags.add(ACTION_TAG.NON_VISIT);
+    this.setTarget(targetAction.initiator);
     this.attack = ATTACK.POWERFUL;
+  }
+
+  execute() {
+    if (!this.revengeAction.isCanceled()) {
+      super.execute();
+    }
   }
 }
 
