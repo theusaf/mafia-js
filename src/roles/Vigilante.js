@@ -22,6 +22,16 @@ class Vigilante extends Role {
       return [new ShootAction(this.player)];
     }
   }
+
+  afterNightSetup() {
+    const myAction = this.player.actions.find(action => action.target && action instanceof ShootAction);
+    if(myAction) {
+      if (myAction.target.getTeam() === TEAM.TOWN) {
+        this.additionalInformation.hasFailed = true;
+        this.additionalInformation.bulletsLeft = 1;
+      }
+    }
+  }
 }
 
 class Oops extends Action {
