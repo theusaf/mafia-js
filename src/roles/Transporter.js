@@ -13,6 +13,7 @@ class Transporter extends Role {
   }
 
   getNightActions() {
+    if (this.player.isDead()) {return;}
     const target = new TransportTarget(this.player),
       main = new TransportAction(this.player, target);
     target.firstTransport = main;
@@ -37,11 +38,13 @@ class TransportAction extends Action {
       target2 = this.secondTransport.target,
       actions1 = target1.targetActions.filter(action => {
         return action !== this
-          && !action.tags.has(ACTION_TAG.TRANSPORT_IMMUNE);
+          && !action.tags.has(ACTION_TAG.TRANSPORT_IMMUNE)
+          && !action.isCanceled();
       }),
       actions2 = target2.targetActions.filter(action => {
         return action !== this.secondTransport
-          && !action.tags.has(ACTION_TAG.TRANSPORT_IMMUNE);
+          && !action.tags.has(ACTION_TAG.TRANSPORT_IMMUNE)
+          && !action.isCanceled();
       });
     // begin swapping
     actions1.forEach(action => {

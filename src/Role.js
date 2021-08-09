@@ -1,4 +1,4 @@
-const {DEFENSE} = require("enum");
+const {DEFENSE, TEAM} = require("enum");
 
 class Role {
 
@@ -27,7 +27,12 @@ class Role {
       /**
        * @param {Number} defense The default defense value of this role.
        */
-      defense: DEFENSE.NONE
+      defense: DEFENSE.NONE,
+
+      /**
+       * @param {String} team The team of this role. "none" if on no team.
+       */
+      team: TEAM.NONE
     };
 
     /**
@@ -36,19 +41,14 @@ class Role {
     this.modifiedStats = {};
 
     /**
-     * @param {String} attack The team of this role. "none" if on no team.
-     */
-    this.team = "none";
-
-    /**
      * @param {String[]} type The type of the role.
      */
     this.type = ["neutral", "benign"];
 
     /**
-     * @param {String[]} tags The tags which describe certain features about the role.
+     * @param {Set<String>} tags The tags which describe certain features about the role.
      */
-    this.tags = [];
+    this.tags = new Set;
 
     /**
      * @param {String[]|String[][]|Function[]} winsWith The type names this role can win with. "*" = all types
@@ -60,10 +60,7 @@ class Role {
     this.winsWith = ["*"];
 
     /**
-     * @param {Object} additionalInformation Extra information for specific interactions. This is copied over if the role is replaced.
-     *
-     * Some to note:
-     * jailed: (boolean) - set to true when jailed
+     * @param {Object} additionalInformation Extra information for specific interactions.
      */
     this.additionalInformation = {};
 
@@ -137,13 +134,17 @@ class Role {
    */
   afterVotingSetup() {}
 
-  setDefense(defense=0) {this.data.defense = defense; return this;}
+  setDefense(defense=0) {this.stats.defense = defense; return this;}
   setType(type) {if(Array.isArray(type)) {this.type = type;} return this;}
-  setTeam(team) {this.team = team; return this;}
+  setTeam(team) {this.stats.team = team; return this;}
   setWinsWith(type) {if(Array.isArray(type)) {this.winsWith = type;} return this;}
   setDescription(description="") {this.description = description; return this;}
   setPlayer(player) {this.player = player; return this;}
-  setTags(tags) {if(Array.isArray(tags)) {this.tags = tags;} return this;}
+  setTags(tags) {if(Array.isArray(tags)) {this.tags = new Set(tags);} return this;}
+
+  getDefense(seeRealDefense) {if(seeRealDefense){return this.stats.defense;} return this.modifiedStats.defense ?? this.stats.defense;}
+  getTeam(seeRealTeam) {if(seeRealTeam){return this.stats.team;} return this.modifiedStats.team ?? this.stats.team;}
+  getName(seeRealName) {if(seeRealName){return this.stats.name;} return this.modifiedStats.name ?? this.stats.name;}
 
 }
 

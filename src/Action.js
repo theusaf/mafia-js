@@ -46,7 +46,14 @@ class Action {
   /**
    * execute - Run at the end of the night. Main logic, cancels, moves, changes states, adds new actions, etc.
    */
-  execute() {}
+  execute() {
+    if (this.attack > ATTACK.NONE) {
+      const targetDefense = this.target.role.getDefense();
+      if (this.attack > targetDefense) {
+        this.target.kill();
+      }
+    }
+  }
 
   isValidTarget(target) {
     return TARGET_FILTER.NONE(target);
@@ -66,7 +73,18 @@ class Action {
       description: reason,
       action: cancelAction
     };
-    this.cancels.push(data);
+    this.cancels.add(data);
+  }
+
+  isCanceled() {
+    let isReallyCanceled = false;
+    for (const cancel of this.cancels) {
+      if (cancel.action.isCanceled()) {
+        continue;
+      }
+      isReallyCanceled = true;
+    }
+    return isReallyCanceled;
   }
 }
 

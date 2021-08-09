@@ -75,10 +75,12 @@ class Game extends EventEmitter {
     while (index < actions.length) {
       const action = actions[index];
       if (alreadyExecutedActions.has(action)) {index++; continue;}
+      if (action.isCanceled()) {index++; continue;}
       action.execute();
       alreadyExecutedActions.add(action);
-      if (actions.length !== oldLength) {
+      if (this.collectPositionedActions().length !== oldLength) {
         index = 0;
+        actions = this.collectPositionedActions();
         oldLength = actions.length;
       } else {
         index++;

@@ -82,5 +82,9 @@ class Player {
     return !this.isAlive();
   }
 
+  kill() {
+    this.isAlive = false;
+  }
+
 }
 module.exports = Player;

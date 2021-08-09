@@ -54,7 +54,8 @@ const ENUM = {
     TOWN: "town",
     MAFIA: "mafia",
     COVEN: "coven",
-    VAMPIRE: "vampire"
+    VAMPIRE: "vampire",
+    NONE: "none"
   },
   PRIORITY: {
     /**
