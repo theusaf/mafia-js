@@ -44,6 +44,10 @@ class AlertAction extends Action {
     }
     this.initiator.role.additionalInformation.alertsRemaining--;
   }
+
+  isValidTarget(target) {
+    return TARGET_FILTER.SELF(target);
+  }
 }
 
 class AttackAction extends Action {
