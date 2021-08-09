@@ -13,6 +13,7 @@ class Veteran extends TownRole {
     this.additionalInformation = {
       alertsRemaining: 3
     };
+    this.selection.max = 1;
   }
 
   getNightActions() {

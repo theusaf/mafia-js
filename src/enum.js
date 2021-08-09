@@ -33,7 +33,7 @@ const ENUM = {
     NOT_SELF: (player, me) => player !== me,
     LIVING: (player) => player.isAlive,
     DEAD: (player) => !ENUM.TARGET_FILTER.LIVING(player),
-    TEAM: (player, me) => player.role.team === me.role.team,
+    TEAM: (player, me) => player.role.getTeam() === me.role.team,
     NOT_TEAM: (player, me) => !ENUM.TARGET_FILTER.TEAM(player, me),
     ALIVE_NOT_SELF: (player, me) => ENUM.TARGET_FILTER.LIVING(player, me) && ENUM.TARGET_FILTER.NOT_SELF(player, me),
     ALIVE_TEAM: (player, me) => ENUM.TARGET_FILTER.LIVING(player, me) && ENUM.TARGET_FILTER.TEAM(player, me),

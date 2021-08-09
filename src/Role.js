@@ -52,6 +52,7 @@ class Role {
 
     /**
      * @param {String[]|String[][]|Function[]} winsWith The type names this role can win with. "*" = all types
+     * - Does not necessarily mean that if the roles are there, this role will win, but that there is no need for both sides to kill each other
      * - If an element is an array of strings, the role must contain all of those strings.
      * - If an element is a function, it must return true if the role is a role that it can win with.
      * Example:

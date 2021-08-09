@@ -21,6 +21,7 @@ class Medium extends TownRole {
 class SeanceAction extends Action {
   constructor(initiator) {
     super(initiator);
+    this.setPriority(PRIORITY.HIGHEST);
     this.tags.add(ACTION_TAG.NON_VISIT);
     this.tags.add(ACTION_TAG.ROLEBLOCK_IMMUNE);
     this.tags.add(ACTION_TAG.TRANSPORT_IMMUNE);

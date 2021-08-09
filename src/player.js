@@ -60,8 +60,6 @@ class Player {
 
   sendMessage() {}
 
-  receiveMessage() {}
-
   whisper() {}
 
   /**
