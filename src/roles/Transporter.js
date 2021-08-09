@@ -25,7 +25,7 @@ class TransportAction extends Action {
   constructor(initiator, transportAction2) {
     super(initiator);
     this.secondTransport = transportAction2;
-    this.tags.push(ACTION_TAG.TRANSPORT_IMMUNE);
+    this.tags.add(ACTION_TAG.TRANSPORT_IMMUNE);
   }
 
   position() {
@@ -37,11 +37,11 @@ class TransportAction extends Action {
       target2 = this.secondTransport.target,
       actions1 = target1.targetActions.filter(action => {
         return action !== this
-          && !action.tags.includes(ACTION_TAG.TRANSPORT_IMMUNE);
+          && !action.tags.has(ACTION_TAG.TRANSPORT_IMMUNE);
       }),
       actions2 = target2.targetActions.filter(action => {
         return action !== this.secondTransport
-          && !action.tags.includes(ACTION_TAG.TRANSPORT_IMMUNE);
+          && !action.tags.has(ACTION_TAG.TRANSPORT_IMMUNE);
       });
     // begin swapping
     actions1.forEach(action => {
@@ -68,7 +68,7 @@ class TransportAction extends Action {
 class TransportTarget extends Action {
   constructor(initiator) {
     super(initiator);
-    this.tags.push(ACTION_TAG.TRANSPORT_IMMUNE);
+    this.tags.add(ACTION_TAG.TRANSPORT_IMMUNE);
     this.firstTransport = null;
   }
 

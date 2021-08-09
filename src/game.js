@@ -28,6 +28,9 @@ class Game extends EventEmitter {
         if (action.notPerformed()) {
           continue;
         }
+        if (action.target.effectData.jailed && action.tags.) {
+          continue;
+        }
         list.push(action);
       }
     }

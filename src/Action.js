@@ -24,14 +24,14 @@ class Action {
     this.attack = ATTACK.NONE;
 
     /**
-     * @param {String[]} tags Various tags
+     * @param {Set<String>} tags Various tags
      */
-    this.tags = [];
+    this.tags = new Set;
 
     /**
-     * @param {Object[]} cancels The cancel reasons for this action
+     * @param {Set<Object>} cancels The cancel reasons for this action
      */
-    this.cancels = [];
+    this.cancels = new Set;
   }
 
   /**
