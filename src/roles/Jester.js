@@ -5,6 +5,7 @@ const NeutralInnocentRole = require("../NeutralInnocentRole"),
 class Jester extends NeutralInnocentRole {
   constructor() {
     super("Jester");
+    this.setType(["neutral", "evil"]);
     this.setDescription("You are a crazed lunatic whose life goal is to be publicly executed.");
     this.additionalInformation = {
       taskFailedSuccessfully: false,

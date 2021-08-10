@@ -37,6 +37,8 @@ class Role {
 
     /**
      * @param {Object} modifiedStats This object is used during action execution for some investigative roles
+     * Reserved properties:
+     * - as: The role the target appears as
      */
     this.modifiedStats = {};
 
@@ -66,7 +68,7 @@ class Role {
     this.additionalInformation = {};
 
     /**
-     * @param {Boolean} shouldSeeTeam Whether the role should be able to see who their team members are    
+     * @param {Boolean} shouldSeeTeam Whether the role should be able to see who their team members are
      */
     this.shouldSeeTeam = false;
 
