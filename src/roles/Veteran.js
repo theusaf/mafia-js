@@ -1,6 +1,6 @@
 const TownRole = require("../Role"),
   Action = require("../Action"),
-  {ROLE_TAG, ACTION_TAG, TARGET_FILTER, ATTACK, PRIORITY} = require("../enum");
+  {ROLE_TAG, ACTION_TAG, TARGET_FILTER, ATTACK, DEFENSE, PRIORITY} = require("../enum");
 
 class Veteran extends TownRole {
 
@@ -42,6 +42,9 @@ class AlertAction extends Action {
     for (const action of revengeActions) {
       const {initiator} = action;
       initiator.targetActions.add(new AttackAction(this.initiator, action));
+    }
+    if (this.initiator.role.modifiedStats.defense < DEFENSE.BASIC) {
+      this.initiator.role.modifiedStats.defense = DEFENSE.BASIC;
     }
     this.initiator.role.additionalInformation.alertsRemaining--;
   }
