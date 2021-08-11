@@ -45,7 +45,8 @@ const ENUM = {
     BYPASS_JAIL: "bypass_jail",
     TRANSPORT_IMMUNE: "transport_immune",
     ROLEBLOCK_IMMUNE: "roleblock_immune",
-    CONTROL_IMMUNE: "control_immune"
+    CONTROL_IMMUNE: "control_immune",
+    INVESTIGATIVE: "investigative"
   },
   ROLE_TAG: {
     VAMPIRE_DEATH: "dies_to_vampire",
