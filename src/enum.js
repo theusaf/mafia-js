@@ -40,6 +40,11 @@ const ENUM = {
     ALIVE_NOT_TEAM: (player, me) => ENUM.TARGET_FILTER.LIVING(player, me) && ENUM.TARGET_FILTER.NOT_TEAM(player, me)
   },
   ACTION_TAG: {
+    /**
+     * @param {String} ENUM This is a special tag, which means that the "target" is actually an enum from a list
+     * - isValidTarget should instead return an array of strings/values to select.
+     */
+    ENUM: "enum",
     PASSIVE_VISIT: "passive_visit",
     NON_VISIT: "non_visit",
     BYPASS_JAIL: "bypass_jail",

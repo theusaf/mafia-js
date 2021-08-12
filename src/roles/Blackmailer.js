@@ -12,6 +12,7 @@ class Blackmailer extends MafiaRole {
 
   getDayActions() {
     if (this.player.isDead()) {return;}
+    return [new BlackmailAction(this.player)];
   }
 }
 
