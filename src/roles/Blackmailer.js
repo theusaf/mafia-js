@@ -10,7 +10,7 @@ class Blackmailer extends MafiaRole {
     this.setDescription("You are an eavesdropper who uses information to keep people quiet.");
   }
 
-  getDayActions() {
+  getNightActions() {
     if (this.player.isDead()) {return;}
     return [new BlackmailAction(this.player)];
   }

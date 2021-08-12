@@ -12,7 +12,7 @@ class Forger extends MafiaRole {
     };
   }
 
-  getDayActions() {
+  getNightActions() {
     if (this.player.isDead() || this.additionalInformation.forgeriesLeft <= 0) {return;}
     const roleChoice = new RoleChoice(this.player);
     return [new ForgeAction(this.player, roleChoice)];
