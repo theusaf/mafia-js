@@ -5,7 +5,7 @@ const MafiaRole = require("../MafiaRole"),
 class Framer extends MafiaRole {
   constructor() {
     super("Framer");
-    this.setType(["mafia", "support"]);
+    this.setType(["mafia", "deception"]);
     this.setDescription("You are a skilled counterfeiter who manipulates information.");
   }
 
