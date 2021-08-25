@@ -39,7 +39,7 @@ class Action {
     this.cancels = new Set;
 
     /**
-     * @param {Number} executeAt When the action should be executed.    
+     * @param {Number} executeAt When the action should be executed.
      */
     this.executeAt = ACTION_EXECUTE.NIGHT_END;
   }
@@ -103,6 +103,7 @@ class Action {
         continue;
       }
       isReallyCanceled = true;
+      break;
     }
     return isReallyCanceled;
   }

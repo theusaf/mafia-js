@@ -53,7 +53,7 @@ class GuardAction extends Action {
     const employer = this.target,
       {targetActions} = employer;
     for (const action of targetActions) {
-      if (action.isCanceled() || action.tags.has(ACTION_TAG.NON_VISIT) || action.tags.has(ACTION_TAG.PASSIVE_VISIT)) {continue;}
+      if (action.isCanceled() || action.tags.has(ACTION_TAG.NON_VISIT)) {continue;}
       if (action.attack > ATTACK.NONE) {
         action.initiator.targetActions.add(new DefendAction(this.initiator, action));
         this.initiator.targetAction.add(new SacrificeAction(this.initiator));

@@ -45,7 +45,6 @@ const ENUM = {
      * - isValidTarget should instead return an array of strings/values to select.
      */
     ENUM: "enum",
-    PASSIVE_VISIT: "passive_visit",
     NON_VISIT: "non_visit",
     BYPASS_JAIL: "bypass_jail",
     TRANSPORT_IMMUNE: "transport_immune",
