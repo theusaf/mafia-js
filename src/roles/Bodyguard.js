@@ -27,6 +27,7 @@ class Bodyguard extends TownRole {
 class VestAction extends Action {
   constructor(initiator) {
     super(initiator);
+    this.setPriority(PRIORITY.STATE_CHANGERS);
   }
 
   isValidTarget(target) {return TARGET_FILTER.SELF(target, this.initiator);}
