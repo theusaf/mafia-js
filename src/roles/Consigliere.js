@@ -1,12 +1,12 @@
-const TownRole = require("../TownRole"),
+const MafiaRole = require("../MafiaRole"),
   Action = require("../Action"),
   {ACTION_TAG, TARGET_FILTER, PRIORITY} = require("../enum");
 
-class Investigator extends TownRole {
+class Consigliere extends TownRole {
   constructor() {
-    super("Investigator");
-    this.setDescription("You are a private eye who secretly gathers information.");
-    this.setType(["town", "investigative"]);
+    super("Consigliere");
+    this.setDescription("You are a corrupted investigator who gathers information for the Mafia.");
+    this.setType(["mafia", "investigative"]);
   }
 
   getNightActions() {
@@ -23,13 +23,12 @@ class InvestigateAction extends Action {
   constructor(initiator) {
     super(initiator);
     this.setPriority(PRIORITY.INVESTIGATIVE);
-    this.tags.add(ACTION_TAG.INVESTIGATIVE);
   }
 
   isValidTarget(target) {
-    return TARGET_FILTER.LIVING(target) && TARGET_FILTER.NOT_SELF(target, this.initiator);
+    return TARGET_FILTER.LIVING(target) && TARGET_FILTER.NOT_TEAM(target, this.initiator);
   }
 
 }
 
-module.exports = Investigator;
+module.exports = Consigliere;

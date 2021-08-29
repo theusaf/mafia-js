@@ -1,4 +1,4 @@
-const TownRole = require("../Role"),
+const TownRole = require("../TownRole"),
   Action = require("../Action"),
   {ROLE_TAG, ACTION_TAG, TARGET_FILTER, ATTACK, DEFENSE, PRIORITY} = require("../enum");
 
