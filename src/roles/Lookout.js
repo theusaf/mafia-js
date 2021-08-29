@@ -2,16 +2,16 @@ const TownRole = require("../Role"),
   Action = require("../Action"),
   {ACTION_TAG, TARGET_FILTER, PRIORITY} = require("../enum");
 
-class Investigator extends TownRole {
+class Lookout extends TownRole {
   constructor() {
-    super("Investigator");
-    this.setDescription("You are a private eye who secretly gathers information.");
+    super("Lookout");
+    this.setDescription("You are an eagle-eyed observer, stealthily camping outside houses to gain information.");
     this.setType(["town", "investigative"]);
   }
 
   getNightActions() {
     if (this.player.isDead()) {return;}
-    return [new InvestigateAction(this.player)];
+    return [new WatchAction(this.player)];
   }
 
   afterNightSetup() {
@@ -19,11 +19,10 @@ class Investigator extends TownRole {
   }
 }
 
-class InvestigateAction extends Action {
+class WatchAction extends Action {
   constructor(initiator) {
     super(initiator);
     this.setPriority(PRIORITY.INVESTIGATIVE);
-    this.tags.add(ACTION_TAG.INVESTIGATIVE);
   }
 
   isValidTarget(target) {
@@ -32,4 +31,4 @@ class InvestigateAction extends Action {
 
 }
 
-module.exports = Investigator;
+module.exports = Lookout;

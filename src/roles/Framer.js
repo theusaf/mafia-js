@@ -43,8 +43,7 @@ class FrameAction extends Action {
   execute() {
     const {target} = this;
     Object.assign(target.role.modifiedStats, {
-      name: "Framer",
-      team: TEAM.MAFIA
+      name: "Framer"
     });
   }
 }
