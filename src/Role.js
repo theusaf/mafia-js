@@ -73,9 +73,10 @@ class Role {
     this.shouldSeeTeam = false;
 
     /**
-     * @param {Boolean|String|String[]} require
-     * The role(s) that must be in the game before selecting this role. Ignored if a boolean variable.
+     * @param {Boolean|String|String[]|Function|Function[]} require
+     * The role(s)/filters that must be in the game before selecting this role. Ignored if a boolean variable.
      * - if an array, only one role is needed, unless requireAll is true
+     * - functions are passed a `role` object.
      * @param {Boolean} requireAll Whether all roles in require must be in the game before selecting this role
      * @param {Number} max The maximum number of this role that can be in the game. Ignored if <= 0
      * @param {Number} min The minimum number of this role that can be in the game. Ignored if <= 0
