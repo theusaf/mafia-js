@@ -1,3 +1,43 @@
+class InvGroup {
+  constructor() {
+    this.groups = [];
+    this.groupAddQueue = [];
+  }
+
+  add(role, with) {
+    const group = this.get(with);
+    if (group) {
+      group.push(role);
+    } else {
+      const waits = this.groupAddQueue.filter((wait) => {
+        return wait.role === with || wait.with === role;
+      });
+      if (waits.length > 0) {
+        const group = [role];
+        for (let i in waits) {
+          const index = this.groupAddQueue.indexOf(waits[i]);
+          this.groupAddQueue.splice(index, 1);
+          group.push(waits[i].role);
+        }
+        this.groups.push(group);
+      } else {
+        this.groupAddQueue.push({
+          role,
+          with
+        });
+      }
+    }
+  }
+
+  get(role) {
+    return this.groups.find((group) => group.includes(role));
+  }
+
+  _end() {
+    groups.push(...this.groupAddQueue.map((wait) => [wait.role]));
+  }
+}
+
 const ENUM = {
   STAGE: {
     GAME_START: 0,
@@ -95,7 +135,8 @@ const ENUM = {
     INNOCENT: -1,
     ABSTAIN: 0,
     GUILTY: 1
-  }
+  },
+  INVESTIGATOR_GROUP: new InvGroup
 };
 
 module.exports = ENUM;
