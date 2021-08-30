@@ -1,7 +1,7 @@
 const Role = require("../Role"),
   Action = require("../Action"),
   Jailor = require("./Jailor"),
-  {ATTACK, DEFENSE, ACTION_TAG, TARGET_FILTER, PRIORITY} = require("../enum");
+  {ATTACK, DEFENSE, ACTION_TAG, TARGET_FILTER, PRIORITY, ROLE_TAG} = require("../enum");
 
 class Werewolf extends Role {
   constructor() {
@@ -9,6 +9,14 @@ class Werewolf extends Role {
     this.setType(["neutral", "killing"]);
     this.setDefense(DEFENSE.BASIC);
     this.setDescription("You are a normal citizen who transforms during the full moon.");
+  }
+
+  beforeNightSetup() {
+    if (this.initiator.game.date % 2 === 1 || this.initiator.game.date > 4) {
+      this.tags.delete(ROLE_TAG.DETECTION_IMMUNE);
+    } else {
+      this.tags.add(ROLE_TAG.DETECTION_IMMUNE);
+    }
   }
 
   getNightActions() {
