@@ -29,7 +29,7 @@ class ExecuteAction extends Action {
     this.tags.add(ACTION_TAG.NON_VISIT);
     this.tags.add(ACTION_TAG.TRANSPORT_IMMUNE);
     this.setAttack(ATTACK.UNSTOPPABLE);
-    this.setPriority(PRIORITY.KILLERS);
+    this.setPriority(PRIORITY.KILLERS - 0.5);
   }
 
   isValidTarget(target) {
@@ -38,6 +38,7 @@ class ExecuteAction extends Action {
 
   execute() {
     super.execute();
+    this.initiator.effectData.didExecute = true;
     this.executionsLeft--;
     if (this.target.isDead() && this.target.getTeam(true) === TEAM.TOWN) {
       this.executionsLeft = 0;

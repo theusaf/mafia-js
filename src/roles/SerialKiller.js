@@ -79,8 +79,12 @@ class KillRoleblockerAction extends Action {
           break;
         }
       }
+      if (jailor.effectData.didExecute) {
+        return;
+      }
       const stab = new StabAction(this.initiator, true);
       stab.setTarget(jailor);
+      stab.tags.add(ACTION_TAG.NON_VISIT);
       jailor.targetActions.add(stab);
     } else {
       for (const cancel of cancels) {
