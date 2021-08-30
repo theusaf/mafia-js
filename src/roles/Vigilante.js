@@ -25,7 +25,7 @@ class Vigilante extends TownRole {
   afterNightSetup() {
     const myAction = this.player.actions.find(action => action.target && action instanceof ShootAction);
     if(myAction) {
-      if (myAction.target.getTeam() === TEAM.TOWN) {
+      if (myAction.target.isDead() && myAction.target.getTeam() === TEAM.TOWN) {
         this.additionalInformation.hasFailed = true;
         this.additionalInformation.bulletsLeft = 1;
       }
