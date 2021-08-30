@@ -1,5 +1,4 @@
 const MafiaRole = require("../MafiaRole"),
-  Cleaned = require("./other/Cleaned"),
   Action = require("../Action"),
   {TARGET_FILTER, PRIORITY, ATTACK} = require("../enum");
 
