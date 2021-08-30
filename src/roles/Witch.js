@@ -10,6 +10,7 @@ class Witch extends NeutralInnocentRole {
     this.setDescription("You are a voodoo master who can control other peoples actions.");
     this.setTeam(TEAM.COVEN);
     this.tags.add(ROLE_TAG.ROLEBLOCK_IMMUNE);
+    this.tags.add(ROLE_TAG.VAMPIRE_DEATH);
     this.additionalInformation = {
       magicBarriers: 1
     };
