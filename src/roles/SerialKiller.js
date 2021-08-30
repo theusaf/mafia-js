@@ -1,7 +1,7 @@
 const Role = require("../Role"),
   Action = require("../Action"),
   Jailor = require("./Jailor"),
-  {ATTACK, DEFENSE, ACTION_TAG, TARGET_FILTER} = require("../enum");
+  {ATTACK, DEFENSE, ACTION_TAG, TARGET_FILTER, PRIORITY} = require("../enum");
 
 class SerialKiller extends Role {
   constructor() {
@@ -13,15 +13,24 @@ class SerialKiller extends Role {
 
   getNightActions() {
     if (this.player.isAlive()) {return;}
+    const attack = new StabAction(this.player),
+      cautious = new CautiousAction(this.player, attack),
+      rbkill = new KillRoleblockerAction(this.player, cautious);
+    return [attack, cautious, rbkill];
   }
 
   getJailActions() {
+    const cautious = new CautiousAction(this.player),
+      rbkill = new KillRoleblockerAction(this.player, cautious);
+    return [cautious, rbkill];
   }
 }
 
 class CautiousAction extends Action {
-  constructor(initiator) {
+  constructor(initiator, mainAttack) {
     super(initiator);
+    this.mainAttack = mainAttack;
+    this.setPriority(PRIORITY.HIGHEST);
     this.tags.add(ACTION_TAG.NON_VISIT);
     this.tags.add(ACTION_TAG.BYPASS_JAIL);
     this.tags.add(ACTION_TAG.TRANSPORT_IMMUNE);
@@ -35,6 +44,10 @@ class CautiousAction extends Action {
 
   isValidTarget(target) {
     return TARGET_FILTER.SELF(target, this.initiator);
+  }
+
+  execute() {
+    this.mainAttack?.tags.add(ACTION_TAG.ROLEBLOCK_IMMUNE);
   }
 }
 
@@ -89,6 +102,10 @@ class StabAction extends Action {
     this.bloody = bloody;
     this.setAttack(ATTACK.BASIC);
     this.setPriority(PRIORITY.KILLERS);
+  }
+
+  isValidTarget(target) {
+    return TARGET_FILTER.LIVING(target) && TARGET_FILTER.NOT_SELF(target, this.initiator);
   }
 
   execute() {
