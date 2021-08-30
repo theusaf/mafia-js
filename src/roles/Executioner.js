@@ -1,5 +1,4 @@
 const NeutralInnocentRole = require("../NeutralInnocentRole"),
-  Action = require("../Action"),
   Jester = require("./Jester"),
   {DEFENSE, TEAM} = require("../enum"),
   roleFilter = (role) => role.team === TEAM.TOWN && role.name !== "Mayor" && role.name !== "Jailor";

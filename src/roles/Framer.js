@@ -1,6 +1,6 @@
 const MafiaRole = require("../MafiaRole"),
   Action = require("../Action"),
-  {ROLE_TAG, ACTION_TAG, TARGET_FILTER, PRIORITY, ACTION_EXECUTE, TEAM} = require("../enum");
+  {ACTION_TAG, TARGET_FILTER, PRIORITY} = require("../enum");
 
 class Framer extends MafiaRole {
   constructor() {

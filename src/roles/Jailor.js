@@ -1,6 +1,6 @@
 const TownRole = require("../TownRole"),
   Action = require("../Action"),
-  {ACTION_TAG, TARGET_FILTER, PRIORITY, ACTION_EXECUTE} = require("../enum");
+  {ACTION_TAG, ATTACK, TEAM, TARGET_FILTER, PRIORITY, ACTION_EXECUTE} = require("../enum");
 
 class Jailor extends TownRole {
   constructor() {

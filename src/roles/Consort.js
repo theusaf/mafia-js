@@ -1,13 +1,13 @@
 const MafiaRole = require("../MafiaRole"),
   Action = require("../Action"),
-  {ROLE_TAG, ACTION_TAG, TARGET_FILTER, PRIORITY, ACTION_EXECUTE} = require("../enum");
+  {ROLE_TAG, ACTION_TAG, TARGET_FILTER, PRIORITY} = require("../enum");
 
 class Consort extends MafiaRole {
   constructor() {
     super("Consort");
     this.setType(["mafia", "support"]);
     this.setDescription("You are a beautiful dancer working for organized crime.");
-    this.tags.add(ROLE_TAG.ROLEBLOCK_IMMUNE)
+    this.tags.add(ROLE_TAG.ROLEBLOCK_IMMUNE);
   }
 
   getDayActions() {
@@ -40,4 +40,4 @@ class DistractAction extends Action {
   }
 }
 
-module.exports = Escort;
+module.exports = Consort;

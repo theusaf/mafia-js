@@ -12,6 +12,7 @@ class Ambusher extends MafiaRole {
 
   getNightActions() {
     if (this.player.isDead()) {return;}
+    return [new AmbushAction(this.player)];
   }
 }
 

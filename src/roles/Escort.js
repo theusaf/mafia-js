@@ -1,13 +1,13 @@
 const TownRole = require("../TownRole"),
   Action = require("../Action"),
-  {ROLE_TAG, ACTION_TAG, TARGET_FILTER, PRIORITY, ACTION_EXECUTE} = require("../enum");
+  {ROLE_TAG, ACTION_TAG, TARGET_FILTER, PRIORITY} = require("../enum");
 
 class Escort extends TownRole {
   constructor() {
     super("Escort");
     this.setType(["town", "support"]);
     this.setDescription("You are a beautiful person skilled in distraction.");
-    this.tags.add(ROLE_TAG.ROLEBLOCK_IMMUNE)
+    this.tags.add(ROLE_TAG.ROLEBLOCK_IMMUNE);
   }
 
   getDayActions() {

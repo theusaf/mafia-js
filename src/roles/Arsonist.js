@@ -1,6 +1,6 @@
 const NeutralInnocentRole = require("../NeutralInnocentRole"),
   Action = require("../Action"),
-  {ACTION_TAG, TEAM, ROLE_TAG, PRIORITY, DEFENSE} = require("../enum");
+  {ACTION_TAG, TARGET_FILTER, ATTACK, PRIORITY, DEFENSE} = require("../enum");
 
 class Arsonist extends NeutralInnocentRole {
   constructor() {

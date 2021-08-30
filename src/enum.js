@@ -4,13 +4,13 @@ class InvGroup {
     this.groupAddQueue = [];
   }
 
-  add(role, with) {
-    const group = this.get(with);
+  add(role, withRole) {
+    const group = this.get(withRole);
     if (group) {
       group.push(role);
     } else {
       const waits = this.groupAddQueue.filter((wait) => {
-        return wait.role === with || wait.with === role;
+        return wait.role === withRole || wait.with === role;
       });
       if (waits.length > 0) {
         const group = [role];
@@ -23,7 +23,7 @@ class InvGroup {
       } else {
         this.groupAddQueue.push({
           role,
-          with
+          withRole
         });
       }
     }
@@ -34,7 +34,7 @@ class InvGroup {
   }
 
   _end() {
-    groups.push(...this.groupAddQueue.map((wait) => [wait.role]));
+    this.groups.push(...this.groupAddQueue.map((wait) => [wait.role]));
   }
 }
 

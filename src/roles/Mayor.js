@@ -1,6 +1,6 @@
 const TownRole = require("../TownRole"),
   Action = require("../Action"),
-  {TARGET_FILTER, DEFENSE, PRIORITY, ACTION_EXECUTE} = require("../enum");
+  {ACTION_EXECUTE} = require("../enum");
 
 class Mayor extends TownRole {
 

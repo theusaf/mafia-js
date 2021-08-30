@@ -1,8 +1,8 @@
 const MafiaRole = require("../MafiaRole"),
   Action = require("../Action"),
-  {ACTION_TAG, TARGET_FILTER, PRIORITY} = require("../enum");
+  {TARGET_FILTER, PRIORITY} = require("../enum");
 
-class Consigliere extends TownRole {
+class Consigliere extends MafiaRole {
   constructor() {
     super("Consigliere");
     this.setDescription("You are a corrupted investigator who gathers information for the Mafia.");

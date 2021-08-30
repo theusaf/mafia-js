@@ -1,7 +1,7 @@
 const MafiaRole = require("../MafiaRole"),
   Cleaned = require("./other/Cleaned"),
   Action = require("../Action"),
-  {ROLE_TAG, ACTION_TAG, TARGET_FILTER, PRIORITY, ACTION_EXECUTE, TEAM} = require("../enum");
+  {TARGET_FILTER, PRIORITY} = require("../enum");
 
 class Janitor extends MafiaRole {
   constructor() {

@@ -2,7 +2,7 @@ const TownRole = require("../TownRole"),
   Action = require("../Action"),
   Vampire = require("./Vampire"),
   Vigilante = require("./Vigilante"),
-  {TEAM, ACTION_TAG, TARGET_FILTER, ATTACK, PRIORITY} = require("../enum");
+  {ACTION_TAG, TARGET_FILTER, ATTACK, PRIORITY} = require("../enum");
 
 class VampireHunter extends TownRole {
   constructor() {

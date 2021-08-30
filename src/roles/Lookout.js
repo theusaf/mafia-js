@@ -1,6 +1,6 @@
 const TownRole = require("../TownRole"),
   Action = require("../Action"),
-  {ACTION_TAG, TARGET_FILTER, PRIORITY} = require("../enum");
+  {TARGET_FILTER, PRIORITY} = require("../enum");
 
 class Lookout extends TownRole {
   constructor() {

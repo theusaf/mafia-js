@@ -154,6 +154,7 @@ class Role {
   getDefense(seeRealDefense) {if(seeRealDefense){return this.stats.defense;} return this.modifiedStats.defense ?? this.stats.defense;}
   getTeam(seeRealTeam) {if(seeRealTeam){return this.stats.team;} return this.modifiedStats.team ?? this.stats.team;}
   getName(seeRealName) {if(seeRealName){return this.stats.name;} return this.modifiedStats.name ?? this.stats.name;}
+  getPlayerName(seeReal) {if(seeReal){return this.player.name;} return this.modifiedStats.playerName ?? this.player.name;}
 
 }
 

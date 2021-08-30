@@ -1,6 +1,6 @@
 const NeutralInnocentRole = require("../NeutralInnocentRole"),
   Action = require("../Action"),
-  {ACTION_TAG, TEAM, ROLE_TAG, PRIORITY, DEFENSE} = require("../enum");
+  {ACTION_TAG, TEAM, ROLE_TAG, PRIORITY, DEFENSE, TARGET_FILTER} = require("../enum");
 
 class Witch extends NeutralInnocentRole {
   constructor() {
@@ -50,8 +50,7 @@ class ControlAction extends Action {
   execute() {
     const {target} = this,
       {target:target2} = this.targetAction,
-      {actions} = target,
-      [action] = actions;
+      {actions} = target;
     if (target.tags.has(ROLE_TAG.CONTROL_IMMUNE)) {return;}
     for (const action of actions) {
       if (action.tags.has(ACTION_TAG.CONTROL_IMMUNE)) {
