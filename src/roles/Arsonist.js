@@ -19,6 +19,10 @@ class Arsonist extends NeutralInnocentRole {
     return [[douse, ignite], clean, new BackDouseAction(this.player)];
   }
 
+  getJailActions() {
+    return [new BackDouseAction(this.player)];
+  }
+
 }
 
 class DouseAction extends Action {
@@ -112,6 +116,7 @@ class BackDouseAction extends DouseAction {
     this.tags.add(ACTION_TAG.CONTROL_IMMUNE);
     this.tags.add(ACTION_TAG.ROLEBLOCK_IMMUNE);
     this.tags.add(ACTION_TAG.NON_VISIT);
+    this.tags.add(ACTION_TAG.BYPASS_JAIL);
     this.setTarget(initiator);
   }
 
