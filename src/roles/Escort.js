@@ -41,3 +41,4 @@ class DistractAction extends Action {
 }
 
 module.exports = Escort;
+module.exports.investigateWith = Escort;

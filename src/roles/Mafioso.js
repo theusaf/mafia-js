@@ -29,3 +29,4 @@ class AttackAction extends Action {
 }
 
 module.exports = Mafioso;
+module.exports.investigateWith = require("./Vigilante");

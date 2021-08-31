@@ -62,3 +62,4 @@ class SelfHealAction extends HealAction {
 }
 
 module.exports = Doctor;
+module.exports.investigateWith = Doctor;

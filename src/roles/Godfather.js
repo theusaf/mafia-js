@@ -79,3 +79,4 @@ class AttackAction extends Action {
 }
 
 module.exports = Godfather;
+module.exports.investigateWith = require("./Bodyguard");

@@ -92,3 +92,4 @@ class DefendAction extends Action {
 }
 
 module.exports = Bodyguard;
+module.exports.investigateWith = Bodyguard;

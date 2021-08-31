@@ -121,3 +121,4 @@ class StabAction extends Action {
 }
 
 module.exports = SerialKiller;
+module.exports.investigateWith = require("./Doctor");

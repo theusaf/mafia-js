@@ -41,3 +41,4 @@ class DistractAction extends Action {
 }
 
 module.exports = Consort;
+module.exports.investigateWith = require("./Escort");

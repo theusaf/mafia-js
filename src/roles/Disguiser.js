@@ -55,3 +55,4 @@ class DisguiseAsAction extends Action {
 }
 
 module.exports = Disguiser;
+module.exports.investigateWith = require("./Doctor");

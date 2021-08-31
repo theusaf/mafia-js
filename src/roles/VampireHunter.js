@@ -105,3 +105,4 @@ class StakeAction extends Action {
 }
 
 module.exports = VampireHunter;
+module.exports.investigateWith = require("./Survivor");

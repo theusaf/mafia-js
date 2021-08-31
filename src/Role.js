@@ -159,3 +159,4 @@ class Role {
 }
 
 module.exports = Role;
+module.exports.investigateWith = null;

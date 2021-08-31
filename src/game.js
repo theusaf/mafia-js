@@ -213,7 +213,6 @@ class Game extends EventEmitter {
       shuffle(players, true);
       // create roles!
       
-
       this.progressStage();
     } else {
       throw new RangeError("Game already started");

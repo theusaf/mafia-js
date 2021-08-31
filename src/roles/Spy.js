@@ -32,3 +32,4 @@ class BugAction extends Action {
 }
 
 module.exports = Spy;
+module.exports.investigateWith = Spy;

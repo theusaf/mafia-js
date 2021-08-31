@@ -32,3 +32,4 @@ class BlackmailAction extends Action {
 }
 
 module.exports = Blackmailer;
+module.exports.investigateWith = require("./Spy");

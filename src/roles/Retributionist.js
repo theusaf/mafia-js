@@ -71,3 +71,4 @@ class RetributeTarget extends Action {
 }
 
 module.exports = Retributionist;
+module.exports.investigateWith = require("./Medium");

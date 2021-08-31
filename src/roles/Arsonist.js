@@ -137,3 +137,4 @@ class BackDouseAction extends DouseAction {
 }
 
 module.exports = Arsonist;
+module.exports.investigateWith = require("./Bodyguard");

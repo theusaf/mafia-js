@@ -60,3 +60,4 @@ class HypnotizeMessage extends Action {
 }
 
 module.exports = Hypnotist;
+module.exports.investigateWith = require("./Escort");

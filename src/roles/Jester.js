@@ -59,3 +59,4 @@ class HauntAction extends Action {
 }
 
 module.exports = Jester;
+module.exports.investigateWith = require("./Framer");

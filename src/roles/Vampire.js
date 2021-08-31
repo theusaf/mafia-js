@@ -103,3 +103,4 @@ class BiteAction extends Action {
 }
 
 module.exports = Vampire;
+module.exports.investigateWith = require("./Framer");

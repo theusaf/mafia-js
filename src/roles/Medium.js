@@ -40,3 +40,4 @@ class SeanceAction extends Action {
 }
 
 module.exports = Medium;
+module.exports.investigateWith = Medium;

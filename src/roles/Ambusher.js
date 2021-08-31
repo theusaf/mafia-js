@@ -51,3 +51,4 @@ class AmbushAttack extends Action {
 }
 
 module.exports = Ambusher;
+module.exports.investigateWith = require("./Vigilante");

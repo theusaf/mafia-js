@@ -54,3 +54,4 @@ class RoleChoice extends Action {
 }
 
 module.exports = Forger;
+module.exports.investigateWith = require("./Lookout");

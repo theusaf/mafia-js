@@ -32,3 +32,4 @@ class WatchAction extends Action {
 }
 
 module.exports = Lookout;
+module.exports.investigateWith = Lookout;

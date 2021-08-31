@@ -64,3 +64,4 @@ class ShootAction extends Action {
 }
 
 module.exports = Vigilante;
+module.exports.investigateWith = Vigilante;

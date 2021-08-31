@@ -47,3 +47,4 @@ class CleanAction extends Action {
 }
 
 module.exports = Janitor;
+module.exports.investigateWith = require("./Medium");

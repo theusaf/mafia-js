@@ -43,3 +43,4 @@ class Executioner extends NeutralInnocentRole {
 }
 
 module.exports = Executioner;
+module.exports.investigateWith = require("./Sheriff");

@@ -68,3 +68,4 @@ class JailAction extends Action {
 }
 
 module.exports = Jailor;
+module.exports.investigateWith = require("./Spy");

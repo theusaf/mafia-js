@@ -52,3 +52,4 @@ class RememberAction extends Action {
 }
 
 module.exports = Amnesiac;
+module.exports.investigateWith = require("./Survivor");

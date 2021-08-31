@@ -32,3 +32,4 @@ class InterrogateAction extends Action {
 }
 
 module.exports = Sheriff;
+module.exports.investigateWith = Sheriff;

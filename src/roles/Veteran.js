@@ -72,3 +72,4 @@ class AttackAction extends Action {
 }
 
 module.exports = Veteran;
+module.exports.investigateWith = require("./Vigilante");

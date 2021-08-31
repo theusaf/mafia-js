@@ -121,3 +121,4 @@ class MaulAction extends Action {
 }
 
 module.exports = Werewolf;
+module.exports.investigateWith = require("./Sheriff");

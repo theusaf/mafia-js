@@ -32,3 +32,4 @@ class InvestigateAction extends Action {
 }
 
 module.exports = Consigliere;
+module.exports.investigateWith = require("./Investigator");

@@ -35,3 +35,4 @@ class VestAction extends Action {
 }
 
 module.exports = Survivor;
+module.exports.investigateWith = Survivor;

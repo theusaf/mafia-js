@@ -49,3 +49,4 @@ class FrameAction extends Action {
 }
 
 module.exports = Framer;
+module.exports.investigateWith = Framer;

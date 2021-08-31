@@ -34,3 +34,4 @@ class RevealAction extends Action {
 }
 
 module.exports = Mayor;
+module.exports.investigateWith = require("./Investigator");

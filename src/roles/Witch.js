@@ -85,3 +85,4 @@ class ControlTarget extends Action {
 }
 
 module.exports = Witch;
+module.exports.investigateWith = require("./Lookout");

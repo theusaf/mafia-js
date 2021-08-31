@@ -86,3 +86,4 @@ class TransportTarget extends Action {
 }
 
 module.exports = Transporter;
+module.exports.investigateWith = require("./Escort");
