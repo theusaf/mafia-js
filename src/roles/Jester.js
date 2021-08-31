@@ -7,6 +7,7 @@ class Jester extends NeutralInnocentRole {
     super("Jester");
     this.setType(["neutral", "evil"]);
     this.setDescription("You are a crazed lunatic whose life goal is to be publicly executed.");
+    this.setGoal("Get yourself lynched by any means necessary.");
     this.additionalInformation = {
       taskFailedSuccessfully: false,
       hasActed: false

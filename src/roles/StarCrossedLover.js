@@ -27,6 +27,8 @@ const NeutralInnocentRole = require("../NeutralInnocentRole");
 class StarCrossedLover extends NeutralInnocentRole {
   constructor() {
     super("Star Crossed Lover");
+    this.setType(["neutral", "killing"]);
+    this.setGoal("Find true love and kill the town and mafia who oppose you.");
     this.setDescription("You are a person who wants to be alone with the one they love.");
     this.setWinsWith([role => role.team !== TEAM.TOWN && role.team !== TEAM.MAFIA]);
     this.selection.max = 2;

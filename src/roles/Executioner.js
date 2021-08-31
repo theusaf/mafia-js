@@ -8,6 +8,7 @@ class Executioner extends NeutralInnocentRole {
     super("Executioner");
     this.setType(["neutral", "evil"]);
     this.setDescription("You are an obsessed lyncher who will stop at nothing to execute your target.");
+    this.setGoal("Get your target lynched at any cost.");
     this.setDefense(DEFENSE.BASIC);
     this.additionalInformation = {
       target: null,

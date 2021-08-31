@@ -8,6 +8,7 @@ class Amnesiac extends NeutralInnocentRole {
     super("Amnesiac");
     this.setType(["neutral", "benign"]);
     this.setDescription("You are a trauma patient that does not remember who they were.");
+    this.setGoal("Remember who you were and complete that roles goal.");
   }
 
   getNightActions() {
