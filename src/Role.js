@@ -15,6 +15,11 @@ class Role {
     this.description = "";
 
     /**
+     * @param {String} goal The goal of this role.
+     */
+    this.goal = "";
+
+    /**
      * @param {Object} stats These are stats/properties that can be overwritten, which affects certain things
      */
     this.stats = {
@@ -150,6 +155,7 @@ class Role {
   setTeam(team) {this.stats.team = team; return this;}
   setWinsWith(type) {if(Array.isArray(type)) {this.winsWith = type;} return this;}
   setDescription(description="") {this.description = description; return this;}
+  setGoal(goal="") {this.goal = goal; return this;}
   setPlayer(player) {this.player = player; return this;}
   setTags(tags) {if(Array.isArray(tags)) {this.tags = new Set(tags);} return this;}
 

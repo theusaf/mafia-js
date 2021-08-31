@@ -9,6 +9,7 @@ class Arsonist extends NeutralInnocentRole {
     this.setWinsWith([(role) => role.name === "Arsonist"]);
     this.setDefense(DEFENSE.BASIC);
     this.setDescription("You are a pyromaniac that wants to burn everyone.");
+    this.setWinsWith([role => role instanceof Arsonist]);
   }
 
   getNightActions() {

@@ -8,6 +8,7 @@ class Vampire extends NeutralInnocentRole {
     this.setTeam(TEAM.VAMPIRE);
     this.setType(["neutral", "chaos"]);
     this.setDescription("You are among the undead who want to turn others at night.");
+    this.setWinsWith([role => role.TEAM === TEAM.VAMPIRE]);
     this.additionalInformation = {
       isYoungest: false
     };

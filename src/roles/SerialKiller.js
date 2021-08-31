@@ -9,6 +9,7 @@ class SerialKiller extends Role {
     this.setType(["neutral", "killing"]);
     this.setDefense(DEFENSE.BASIC);
     this.setDescription("You are a psychotic criminal who wants everyone to die.");
+    this.setWinsWith([role => role instanceof SerialKiller]);
   }
 
   getNightActions() {

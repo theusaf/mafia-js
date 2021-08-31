@@ -9,6 +9,8 @@ class Werewolf extends Role {
     this.setType(["neutral", "killing"]);
     this.setDefense(DEFENSE.BASIC);
     this.setDescription("You are a normal citizen who transforms during the full moon.");
+    this.setWinsWith([]);
+    this.selection.max = 1;
   }
 
   beforeNightSetup() {
