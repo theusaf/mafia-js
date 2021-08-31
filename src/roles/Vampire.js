@@ -1,6 +1,6 @@
 const NeutralInnocentRole = require("../NeutralInnocentRole"),
   Action = require("../Action"),
-  {ACTION_TAG, ATTACK, VOTE, TEAM, ROLE_TAG, TARGET_FILTER} = require("../enum");
+  {ACTION_TAG, ATTACK, DEFENSE, PRIORITY, TEAM, ROLE_TAG, TARGET_FILTER} = require("../enum");
 
 class Vampire extends NeutralInnocentRole {
   constructor() {
@@ -10,7 +10,7 @@ class Vampire extends NeutralInnocentRole {
     this.setDescription("You are among the undead who want to turn others at night.");
     this.additionalInformation = {
       isYoungest: false
-    }
+    };
   }
 
   getNightActions() {
@@ -54,7 +54,7 @@ class Vampire extends NeutralInnocentRole {
         }
       }
     }
-    beforeGameSetup();
+    this.beforeGameSetup();
   }
 }
 
