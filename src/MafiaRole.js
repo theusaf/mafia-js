@@ -7,6 +7,7 @@ class MafiaRole extends Role {
     this.setTeam(TEAM.MAFIA);
     this.tags.add(ROLE_TAG.VAMPIRE_DEATH);
     this.shouldSeeTeam = true;
+    this.selection.max = 4;
   }
 }
 

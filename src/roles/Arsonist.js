@@ -58,6 +58,7 @@ class IgniteAction extends Action {
   }
 
   execute() {
+    // TODO: fix this... this is incorrect.
     const {target} = this,
       {targetActions} = target;
     for (const action of targetActions) {

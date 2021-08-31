@@ -10,6 +10,10 @@ class Game extends EventEmitter {
     this.stage = STAGE.GAME_START;
     this.players = {};
     this.voteInformation = {
+
+      /**
+       * @param {Player} votedTarget The target that was voted
+       */
       votedTarget: null,
       /**
        * @param {Object[]} votes Vote information
@@ -19,6 +23,13 @@ class Game extends EventEmitter {
        * }
        */
       votes: []
+    };
+    this.otherInformation = {
+
+      /**
+       * @param {Boolean} vampiresCanBite Whether vampires can bite
+       */
+      vampiresCanBite: true
     };
   }
 
@@ -96,7 +107,7 @@ class Game extends EventEmitter {
         index++;
       }
       if (actions.length >= originalLength + ASSUME_ERROR_NUMBER) {
-        throw new RangeError("Detected an infinite loop, check roles which create or cancel actions.");
+        throw new RangeError("Detected an infinite loop, check roles which create or cancel actions.", actions);
       }
     }
   }
