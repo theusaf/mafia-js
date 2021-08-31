@@ -23,7 +23,7 @@ class InvGroup {
       } else {
         this.groupAddQueue.push({
           role,
-          withRole
+          with: withRole
         });
       }
     }
