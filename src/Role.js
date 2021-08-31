@@ -80,12 +80,14 @@ class Role {
      * @param {Boolean} requireAll Whether all roles in require must be in the game before selecting this role
      * @param {Number} max The maximum number of this role that can be in the game. Ignored if <= 0
      * @param {Number} min The minimum number of this role that can be in the game. Ignored if <= 0
+     * @param {Number} maxOfTeam The max number of the roles of this team that can be in the game. Ignored if <= 0
      */
     this.selection = {
       require: false,
       requireAll: false,
       max: 0,
-      min: 0
+      min: 0,
+      maxOfTeam: 0
     };
   }
 

@@ -140,15 +140,4 @@ const ENUM = {
   INVESTIGATOR_GROUP: new InvGroup
 };
 
-{
-  const roles = require("./roles");
-
-  for (const role of roles) {
-    const investigateWith = role.investigateWith ?? role;
-    ENUM.INVESTIGATOR_GROUP.add(role, investigateWith);
-  }
-
-  ENUM.INVESTIGATOR_GROUP._end();
-}
-
 module.exports = ENUM;

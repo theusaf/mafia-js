@@ -12,7 +12,6 @@ const fs = require("fs"),
 roles.push(Cleaned);
 
 for (const role of roles) {
-  console.log(role)
   const test = new role,
     name = test.getName(true);
   roleMap[name] = role;

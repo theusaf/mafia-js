@@ -10,6 +10,7 @@ class Godfather extends MafiaRole {
     this.setType(["mafia", "killing"]);
     this.setDefense(DEFENSE.BASIC);
     this.setDescription("You are the leader of organized crime.");
+    this.selection.max = 1;
   }
 
   getNightActions() {

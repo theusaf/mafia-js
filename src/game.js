@@ -1,8 +1,20 @@
 const EventEmitter = require("events"),
   Mayor = require("./roles/Mayor"),
-  {STAGE, ACTION_TAG, ACTION_EXECUTE} = require("./enum"),
+  ENUM = require("./enum"),
+  {STAGE, ACTION_TAG, ACTION_EXECUTE} = ENUM,
   shuffle = require("./util/shuffle"),
   prioritySort = (a, b) => a.priority - b.priority;
+
+{
+  const {roles} = require("./roles");
+
+  for (const role of roles) {
+    const investigateWith = role.investigateWith ?? role;
+    ENUM.INVESTIGATOR_GROUP.add(role, investigateWith);
+  }
+
+  ENUM.INVESTIGATOR_GROUP._end();
+}
 
 class Game extends EventEmitter {
 
@@ -212,7 +224,7 @@ class Game extends EventEmitter {
       this.repeatAllPlayers((player) => players.push(player));
       shuffle(players, true);
       // create roles!
-      
+
       this.progressStage();
     } else {
       throw new RangeError("Game already started");

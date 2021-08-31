@@ -7,6 +7,7 @@ class Mafioso extends MafiaRole {
     super("Mafioso");
     this.setType(["mafia", "killing"]);
     this.setDescription("You are a member of organized crime, trying to work your way to the top.");
+    this.selection.max = 1;
   }
 
   getNightActions() {
