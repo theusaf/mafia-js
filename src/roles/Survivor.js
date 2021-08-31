@@ -13,7 +13,7 @@ class Survivor extends NeutralInnocentRole {
   }
 
   getNightActions() {
-    if (this.player.isAlive() || this.additionalInformation.vestsRemaining < 1) {return;}
+    if (this.player.isDead() || this.additionalInformation.vestsRemaining < 1) {return;}
     return [new VestAction(this.player)];
   }
 }
