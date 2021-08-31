@@ -1,4 +1,4 @@
-const {DEFENSE, TEAM} = require("enum");
+const {DEFENSE, TEAM} = require("./enum");
 
 class Role {
 

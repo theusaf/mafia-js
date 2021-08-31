@@ -21,3 +21,13 @@
   -- gains BASIC defense
   - night action (2): can attack with a BASIC attack.
 */
+
+const NeutralInnocentRole = require("../NeutralInnocentRole");
+
+class StarCrossedLover extends NeutralInnocentRole {
+  constructor() {
+    super("Star Crossed Lover");
+  }
+}
+
+module.exports = StarCrossedLover;

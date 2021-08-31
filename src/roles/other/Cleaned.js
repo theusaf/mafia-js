@@ -1,7 +1,7 @@
-const Role = require("../Role");
+const Role = require("../../Role");
 
 class Cleaned extends Role {
-  constructor(original) {
+  constructor(original = {}) {
     super("Cleaned");
     this.setPlayer(original.player);
     this.originalRole = original;

@@ -1,6 +1,7 @@
 const EventEmitter = require("events"),
   Mayor = require("./roles/Mayor"),
   {STAGE, ACTION_TAG, ACTION_EXECUTE} = require("./enum"),
+  shuffle = require("./util/shuffle"),
   prioritySort = (a, b) => a.priority - b.priority;
 
 class Game extends EventEmitter {
@@ -204,6 +205,20 @@ class Game extends EventEmitter {
   }
 
   checkVictors() {}
+
+  startGame() {
+    if (this.stage === STAGE.GAME_START) {
+      const players = [];
+      this.repeatAllPlayers((player) => players.push(player));
+      shuffle(players, true);
+      // create roles!
+      
+
+      this.progressStage();
+    } else {
+      throw new RangeError("Game already started");
+    }
+  }
 
 }
 
