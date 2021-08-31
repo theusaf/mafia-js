@@ -41,11 +41,15 @@ class Vampire extends NeutralInnocentRole {
       biteAction = game.collectPositionedActions().find((action) => {
         return action instanceof BiteAction && !action.isCanceled();
       });
+    if (!game.otherInformation.vampiresCanBite) {
+      game.otherInformation.vampiresCanBite = true;
+    }
     if (biteAction) {
       const {target} = biteAction;
       if (target.isAlive()) {
         if (target.role.getDefense() === DEFENSE.NONE) {
           // successfully bitten?
+          game.otherInformation.vampiresCanBite = false;
           biteAction.initiator.additionalInformation.isYoungest = false;
           const vamp = new Vampire;
           vamp.setPlayer(target);
