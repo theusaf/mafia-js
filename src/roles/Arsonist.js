@@ -58,17 +58,16 @@ class IgniteAction extends Action {
   }
 
   execute() {
-    // TODO: fix this... this is incorrect.
-    const {target} = this,
-      {targetActions} = target;
-    for (const action of targetActions) {
-      if (action instanceof DouseAction && !action.isCanceled()) {
-        if (!target.effectData.alreadyIgnited) {
-          target.targetActions.add(new IgniteKill(this.initiator, target));
-        }
-        target.effectData.alreadyIgnited = true;
-        action.cancel("Ignition", this);
+    const actions = this.initiator.game.collectPositionedActions().filter((action) => {
+      return action instanceof DouseAction && !action.isCanceled();
+    });
+    for (const action of actions) {
+      const {target} = action;
+      if (!target.effectData.alreadyIgnited) {
+        target.targetActions.add(new IgniteKill(this.initiator, target));
       }
+      target.effectData.alreadyIgnited = true;
+      action.cancel("Ignition", this);
     }
   }
 }
