@@ -1,7 +1,7 @@
 const NeutralInnocentRole = require("../NeutralInnocentRole"),
   Cleaned = require("./other/Cleaned"),
   Action = require("../Action"),
-  {TARGET_FILTER, DEFENSE, PRIORITY} = require("../enum");
+  {TARGET_FILTER, PRIORITY} = require("../enum");
 
 class Amnesiac extends NeutralInnocentRole {
   constructor() {

@@ -1,5 +1,6 @@
 const EventEmitter = require("events"),
-  {STAGE, ACTION_TAG} = require("./enum"),
+  Mayor = require("./roles/Mayor"),
+  {STAGE, ACTION_TAG, ACTION_EXECUTE} = require("./enum"),
   prioritySort = (a, b) => a.priority - b.priority;
 
 class Game extends EventEmitter {
@@ -22,7 +23,8 @@ class Game extends EventEmitter {
        *   vote: -1, 0, 1
        * }
        */
-      votes: []
+      votes: [],
+      voteSessionsRemaining: 3
     };
     this.otherInformation = {
 
@@ -33,7 +35,95 @@ class Game extends EventEmitter {
     };
   }
 
-  progressStage() {}
+  repeatAllPlayers(func) {
+    for (const player of this.players) {
+      func(player);
+    }
+  }
+
+  /**
+   * clearTempData - Clears information (effectData, completed actions, etc) from the players
+   */
+  clearTempData() {
+    this.repeatAllPlayers((player) => {
+      player.effectData = {};
+      player.role.modifiedStats = {};
+      player.actions = [];
+      for (const action of player.targetActions) {
+        if (action.tags.persistent && !action.isCanceled()) {
+          continue;
+        }
+        player.targetActions.delete(action);
+      }
+    });
+  }
+
+  progressStage() {
+    switch (this.stage) {
+    case STAGE.GAME_START: {
+      this.repeatAllPlayers((player) => player.role.beforeGameSetup());
+      this.stage = STAGE.NIGHT;
+      this.repeatAllPlayers((player) => player.role.beforeNightSetup());
+      break;
+    }
+    case STAGE.NIGHT: {
+      this.stage = STAGE.CALCULATION;
+      this.executeActions();
+      break;
+    }
+    case STAGE.CALCULATION: {
+      this.repeatAllPlayers((player) => player.role.afterNightSetup());
+      this.stage = STAGE.PRE_DISCUSSION;
+      break;
+    }
+    case STAGE.PRE_DISCUSSION: {
+      this.clearTempData();
+      this.stage = STAGE.DISCUSSION;
+      this.checkVictors();
+      break;
+    }
+    case STAGE.DISCUSSION: {
+      this.stage = STAGE.VOTING;
+      this.voteInformation.voteSessionsRemaining = 3;
+      this.votedTarget = null;
+      break;
+    }
+    case STAGE.VOTING: {
+      if (this.votedTarget) {
+        this.stage = STAGE.VOTE_DEFENSE;
+      } else {
+        this.stage = STAGE.NIGHT;
+        this.repeatAllPlayers((player) => player.role.beforeNightSetup());
+      }
+      break;
+    }
+    case STAGE.VOTE_DEFENSE: {
+      this.stage = STAGE.VOTE_LYNCH;
+      break;
+    }
+    case STAGE.VOTE_LYNCH: {
+      const val = this.voteInformation.votes.reduce((info, value) => {
+        const {player, vote} = info;
+        if (player.role instanceof Mayor && player.role.additionalInformation.isRevealed) {
+          return value + vote * 3;
+        } else {
+          return value + vote;
+        }
+      }, 0);
+      if (val > 0) {
+        this.voteInformation.voteSessionsRemaining--;
+        this.stage = STAGE.VOTING;
+      } else {
+        this.stage = STAGE.NIGHT;
+        this.checkVictors();
+        if (this.stage !== STAGE.GAME_END) {
+          this.repeatAllPlayers((player) => player.role.beforeNightSetup());
+        }
+      }
+      break;
+    }}
+    this.emit("stageProgress", this.stage);
+  }
 
   /**
    * collectActions - Runs through all players, collecting all actions before executing.
@@ -86,7 +176,7 @@ class Game extends EventEmitter {
   /**
    * executeActions - The final phase, executes, cancels, moves, and changes states
    */
-  executeActions() {
+  executeActions(executeAt = ACTION_EXECUTE.NIGHT_END) {
     const ASSUME_ERROR_NUMBER = 500,
       alreadyExecutedActions = new Set,
       originalLength = actions.length;
@@ -97,6 +187,7 @@ class Game extends EventEmitter {
       const action = actions[index];
       if (alreadyExecutedActions.has(action)) {index++; continue;}
       if (action.isCanceled()) {index++; continue;}
+      if (action.executeAt !== executeAt) {index++; continue;}
       action.execute();
       alreadyExecutedActions.add(action);
       if (this.collectPositionedActions().length !== oldLength) {

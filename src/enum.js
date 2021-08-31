@@ -47,7 +47,8 @@ const ENUM = {
     DISCUSSION: 3, // discussion
     VOTING: 4, // voting to lynch someone
     VOTE_DEFENSE: 5, // someone's testimony
-    VOTE_LYNCH: 6 // whether guilty/innocent
+    VOTE_LYNCH: 6, // whether guilty/innocent
+    GAME_END: 7 // end of the game
   },
   ACTION_EXECUTE: {
     NIGHT_END: 0,
