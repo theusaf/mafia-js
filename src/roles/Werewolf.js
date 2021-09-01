@@ -100,7 +100,6 @@ class RampageAction extends Action {
   }
 
   execute() {
-    console.log("WW Rampage!!");
     const {target} = this,
       {targetActions} = target;
     if (target !== this.initiator) {
@@ -127,4 +126,3 @@ class MaulAction extends Action {
 
 module.exports = Werewolf;
 module.exports.investigateWith = require("./Sheriff");
-// TODO: investigate crash when multiple targets to attack are available

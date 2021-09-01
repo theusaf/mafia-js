@@ -15,7 +15,7 @@ class Jester extends NeutralInnocentRole {
   }
 
   getNightActions() {
-    if (this.player.isAlive() || !this.additionalInformation.taskFailedSuccessfully || this.hasActed) {return;}
+    if (this.player.isAlive() || !this.additionalInformation.taskFailedSuccessfully || this.additionalInformation.hasActed) {return;}
     return [new HauntAction(this.player)];
   }
 

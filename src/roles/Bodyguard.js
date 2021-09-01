@@ -19,7 +19,11 @@ class Bodyguard extends TownRole {
     if (this.additionalInformation.vestsRemaining >= 1) {
       actions.push(new VestAction(this.player));
     }
-    return actions;
+    if (actions.length > 1) {
+      return [actions];
+    } else {
+      return actions;
+    }
   }
 
 }
@@ -58,7 +62,7 @@ class GuardAction extends Action {
       if (action.attack > ATTACK.NONE) {
         action.cancel("Bodyguard defend", this);
         action.initiator.targetActions.add(new DefendAction(this.initiator, action));
-        this.initiator.targetAction.add(new SacrificeAction(this.initiator));
+        this.initiator.targetActions.add(new SacrificeAction(this.initiator));
         break;
       }
     }

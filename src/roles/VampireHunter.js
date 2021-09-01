@@ -47,7 +47,7 @@ class CheckAction extends Action {
   }
 
   execute() {
-    const {role} = this.target.player;
+    const {role} = this.target;
     if (role instanceof Vampire) {
       const stake = new StakeAction(this.initiator, this);
       this.stakeAction = stake;

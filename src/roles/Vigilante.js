@@ -14,7 +14,7 @@ class Vigilante extends TownRole {
   }
 
   getNightActions() {
-    if (this.player.isDead() || this.additionalInformation.bulletsLeft <= 0) {return;}
+    if (this.player.isDead() || this.additionalInformation.bulletsLeft <= 0 || this.player.game.date <= 1) {return;}
     if (this.additionalInformation.hasFailed) {
       this.player.targetActions.add(new Oops(this.player));
     } else {
@@ -23,9 +23,9 @@ class Vigilante extends TownRole {
   }
 
   afterNightSetup() {
-    const myAction = this.player.actions.find(action => action.target && action instanceof ShootAction);
+    const myAction = this.player.actions?.find(action => action.target && action instanceof ShootAction);
     if(myAction) {
-      if (myAction.target.isDead() && myAction.target.getTeam() === TEAM.TOWN) {
+      if (myAction.target.isDead() && myAction.target.role.getTeam() === TEAM.TOWN) {
         this.additionalInformation.hasFailed = true;
         this.additionalInformation.bulletsLeft = 1;
       }
@@ -51,6 +51,7 @@ class ShootAction extends Action {
   constructor(initiator) {
     super(initiator);
     this.setPriority(PRIORITY.KILLERS);
+    this.setAttack(ATTACK.BASIC);
   }
 
   isValidTarget(target) {

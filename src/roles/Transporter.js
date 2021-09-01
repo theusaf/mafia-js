@@ -37,16 +37,22 @@ class TransportAction extends Action {
   execute() {
     const target1 = this.target,
       target2 = this.secondTransport.target,
-      actions1 = target1.targetActions.filter(action => {
-        return action !== this
-          && !action.tags.has(ACTION_TAG.TRANSPORT_IMMUNE)
-          && !action.isCanceled();
-      }),
-      actions2 = target2.targetActions.filter(action => {
-        return action !== this.secondTransport
-          && !action.tags.has(ACTION_TAG.TRANSPORT_IMMUNE)
-          && !action.isCanceled();
-      });
+      actions1 = [],
+      actions2 = [];
+    for (const action of target1.targetActions) {
+      if (action !== this
+        && !action.tags.has(ACTION_TAG.TRANSPORT_IMMUNE)
+        && !action.isCanceled()) {
+        actions1.push(action);
+      }
+    }
+    for (const action of target2.targetActions) {
+      if (action !== this
+        && !action.tags.has(ACTION_TAG.TRANSPORT_IMMUNE)
+        && !action.isCanceled()) {
+        actions2.push(action);
+      }
+    }
     // begin swapping
     actions1.forEach(action => {
       action.target = target2;

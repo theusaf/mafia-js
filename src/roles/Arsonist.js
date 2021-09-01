@@ -63,12 +63,16 @@ class IgniteAction extends Action {
     const actions = this.initiator.game.collectPositionedActions().filter((action) => {
       return action instanceof DouseAction && !action.isCanceled();
     });
+    this.initiator.game.repeatAllPlayers((player) => {
+      if (player.effectData.doused) {
+        if (!player.effectData.alreadyIgnited) {
+          player.targetActions.add(new IgniteKill(this.initiator, player));
+        }
+        player.effectData.alreadyIgnited = true;
+      }
+    });
     for (const action of actions) {
       const {target} = action;
-      if (!target.effectData.alreadyIgnited) {
-        target.targetActions.add(new IgniteKill(this.initiator, target));
-      }
-      target.effectData.alreadyIgnited = true;
       action.cancel("Ignition", this);
     }
   }
@@ -130,6 +134,7 @@ class BackDouseAction extends DouseAction {
       }
       const {initiator} = action,
         douse = new DouseAction(this.initiator);
+      douse.tags.add(ACTION_TAG.NON_VISIT);
       douse.setTarget(initiator);
       initiator.targetActions.add(douse);
     }

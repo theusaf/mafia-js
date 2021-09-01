@@ -33,7 +33,7 @@ class RetributeAction extends Action {
   }
 
   notPerformed() {
-    return !this.target || !this.targetAction.target;
+    return !this.target || !this.targetActions.target;
   }
 
   isValidTarget(target) {
@@ -54,8 +54,8 @@ class RetributeAction extends Action {
     let [usedAction] = targetActions;
     if (Array.isArray(usedAction)) {usedAction = usedAction[0];}
     usedAction.initiator = target;
-    usedAction.target = this.targetAction.target;
-    this.targetAction.target.targetActions.add(usedAction);
+    usedAction.target = this.targetActions.target;
+    this.targetActions.target.targetActions.add(usedAction);
   }
 }
 

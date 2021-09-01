@@ -76,13 +76,13 @@ class VoteAction extends Action {
   }
 
   execute() {
-    if (this.additionalInformation.isYoungest) {
+    if (this.initiator.role.additionalInformation.isYoungest) {
       const {game} = this.initiator,
         actions = game.collectPositionedActions().filter((action) => {
           return action instanceof VoteAction;
         }),
-        finalTarget = actions[Math.floor(Math.random() * actions.length)];
-      finalTarget.targetActions.add(new BiteAction(this.initiator, finalTarget));
+        finalTarget = actions[Math.floor(Math.random() * actions.length)]?.target;
+      finalTarget?.targetActions.add(new BiteAction(this.initiator, finalTarget));
     }
   }
 }
@@ -100,6 +100,8 @@ class BiteAction extends Action {
     if (role instanceof Vampire) {return;}
     if (role.getDefense() > DEFENSE.NONE || role.tags.has(ROLE_TAG.VAMPIRE_DEATH) || this.initiator.getVamps().length >= 4) {
       super.execute();
+    } else {
+      this.setAttack(ATTACK.NONE);
     }
   }
 }

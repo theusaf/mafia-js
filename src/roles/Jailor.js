@@ -40,7 +40,7 @@ class ExecuteAction extends Action {
     super.execute();
     this.initiator.effectData.didExecute = true;
     this.executionsLeft--;
-    if (this.target.isDead() && this.target.getTeam(true) === TEAM.TOWN) {
+    if (this.target.isDead() && this.target.role.getTeam(true) === TEAM.TOWN) {
       this.executionsLeft = 0;
     }
   }

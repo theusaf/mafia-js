@@ -10,5 +10,7 @@ for (const role of roles.roles) {
 ENUM.INVESTIGATOR_GROUP._end();
 
 module.exports = {
-  Game
+  Game,
+  roles: roles.roles,
+  roleMap: roles.roleMap
 };
