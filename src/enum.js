@@ -41,6 +41,7 @@ class InvGroup {
 const ENUM = {
   STAGE: {
     GAME_START: 0,
+    PRE_GAME_DISCUSS: -2,
     NIGHT: 1, // where the majority of actions take place
     CALCULATION: -1, // after night, calculating results
     PRE_DISCUSSION: 2, // notifying all about deaths and stuff

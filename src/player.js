@@ -81,7 +81,7 @@ class Player {
   }
 
   kill() {
-    this.isAlive = false;
+    this.alive = false;
   }
 
 }

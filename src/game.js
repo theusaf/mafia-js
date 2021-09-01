@@ -93,6 +93,7 @@ class Game extends EventEmitter {
   }
 
   beforeNightSetup() {
+    this.date++;
     this.clearTempData();
     this.executeActions(ACTION_EXECUTE.NIGHT_START);
     this.repeatAllPlayers((player) => player.role.beforeNightSetup());
@@ -109,6 +110,10 @@ class Game extends EventEmitter {
     switch (this.stage) {
     case STAGE.GAME_START: {
       this.repeatAllPlayers((player) => player.role.beforeGameSetup());
+      this.stage = STAGE.PRE_GAME_DISCUSS;
+      break;
+    }
+    case STAGE.PRE_GAME_DISCUSS: {
       this.stage = STAGE.NIGHT;
       this.beforeNightSetup();
       break;
@@ -196,14 +201,14 @@ class Game extends EventEmitter {
    */
   collectActions() {
     const list = [];
-    for (let key in this.players) {
-      const player = this.players[key],
-        {actions} = player;
+    for (const player of this.players) {
+      let actions = player.actions ?? [];
+      actions = actions.flat();
       for (const action of actions) {
         if (action.notPerformed()) {
           continue;
         }
-        if (action.target.effectData.jailed && !action.tags.has(ACTION_TAG.BYPASS_JAIL)) {
+        if (action.target?.effectData.jailed && !action.tags.has(ACTION_TAG.BYPASS_JAIL)) {
           continue;
         }
         list.push(action);
@@ -220,15 +225,14 @@ class Game extends EventEmitter {
     const actions = this.collectActions();
     for (const action of actions) {
       const positionedActions = action.position();
-      positionedActions.forEach(action => action.target.targetActions.push(action));
+      positionedActions?.forEach(action => action.target.targetActions.add(action));
     }
   }
 
   collectPositionedActions() {
     const list = [];
-    for (let key in this.players) {
-      const player = this.players[key],
-        {targetActions:actions} = player;
+    for (const player of this.players) {
+      const {targetActions:actions} = player;
       for (const action of actions) {
         list.push(action);
       }
@@ -243,6 +247,7 @@ class Game extends EventEmitter {
   executeActions(executeAt = ACTION_EXECUTE.NIGHT_END) {
     const ASSUME_ERROR_NUMBER = 500,
       alreadyExecutedActions = new Set;
+    this.positionActions();
     let index = 0,
       actions = this.collectPositionedActions(),
       oldLength = actions.length,

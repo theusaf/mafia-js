@@ -68,7 +68,7 @@ class VoteAction extends Action {
   constructor(initiator) {
     super(initiator);
     this.tags.add(ACTION_TAG.NON_VISIT);
-    this.tags.setPriority(PRIORITY.CANCELLERS + 0.5);
+    this.setPriority(PRIORITY.CANCELLERS + 0.5);
   }
 
   isValidTarget(target) {

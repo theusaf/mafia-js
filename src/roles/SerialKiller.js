@@ -66,7 +66,7 @@ class KillRoleblockerAction extends Action {
   }
 
   notPerformed() {
-    return this.cautious.target && (!this.cautious.isCanceled() || this.initiator.effectData.jailed);
+    return this.cautiousAction.target && (!this.cautiousAction.isCanceled() || this.initiator.effectData.jailed);
   }
 
   execute() {
