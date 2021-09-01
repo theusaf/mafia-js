@@ -23,7 +23,8 @@
 */
 
 const NeutralInnocentRole = require("../NeutralInnocentRole"),
-  {TEAM} = require("../enum");
+  Action == require("../Action"),
+  {TEAM, DEFENSE, ATTACK, TARGET_FILTER, PRIORITY, ACTION_TAG} = require("../enum");
 
 class StarCrossedLover extends NeutralInnocentRole {
   constructor() {
@@ -34,7 +35,113 @@ class StarCrossedLover extends NeutralInnocentRole {
     this.setWinsWith([role => role.team !== TEAM.TOWN && role.team !== TEAM.MAFIA]);
     this.selection.max = 2;
     this.selection.min = 2;
+    this.additionalInformation = {
+      hasFoundLove: false,
+      hasBrokenHeart: false
+    };
+  }
+
+  getNightActions() {
+    if (this.player.isDead()) {return;}
+    if (this.additionalInformation.hasBrokenHeart) {
+      return [new BrokenAction(this.player)];
+    }
+    if (this.additionalInformation.hasFoundLove) {
+      return [new KillAction(this.player)];
+    }
+    return [new StareAction(this.player)];
+  }
+
+  afterNightSetup() {
+    if (this.additionalInformation.hasBrokenHeart || this.player.isDead()) {
+      return;
+    }
+    const {targetActions, game} = this.player,
+      {players} = game;
+    for (const player of players) {
+      if (player.role instanceof StarCrossedLover && player.isDead()) {
+        this.additionalInformation.hasBrokenHeart = true;
+        return;
+      }
+    }
+    if (this.additionalInformation.hasFoundLove) {return;}
+    let foundAction, foundAction2;
+    for (const action of targetActions) {
+      if (action.isCanceled()) {continue;}
+      if (!(action instanceof StareAction)) {continue;}
+      if (action.initiator === this.player) {continue;}
+      foundAction = action;
+      break;
+    }
+    if (!foundAction) {return;}
+    const {targetActions:targetActions2} = foundAction.initiator;
+    for (const action of targetActions2) {
+      if (action.isCanceled()) {continue;}
+      if (!(action instanceof StareAction)) {continue;}
+      if (action.initiator !== this.player) {continue;}
+      foundAction2 = action;
+      break;
+    }
+    if (!foundAction2) {return;}
+    this.additionalInformation.hasFoundLove = true;
+    this.setDefense(DEFENSE.BASIC);
+  }
+
+}
+
+class KillAction extends Action {
+  constructor(initiator) {
+    super(initiator);
+    this.setAttack(ATTACK.BASIC);
+    this.setPriority(PRIORITY.KILLERS);
+  }
+
+  isValidTarget(target) {
+    return TARGET_FILTER.LIVING(target) && target.role.getName(true) !== this.initiator.role.getName(true);
+  }
+}
+
+class StareAction extends Action {
+  constructor(initiator) {
+    super(initiator);
+    this.setPriority(PRIORITY.INVESTIGATIVE);
+  }
+
+  isValidTarget(target) {
+    return TARGET_FILTER.LIVING(target) && TARGET_FILTER.NOT_SELF(target, this.initiator);
+  }
+
+  execute() {
+    const {target} = this,
+      {targetActions} = this.initiator;
+    if (target.role instanceof StarCrossedLover) {
+      let mutual = false;
+      for (const action of targetActions) {
+        if (action instanceof StareAction && !action.isCanceled() && action.initiator !== this.initiator) {
+          // they found each other!
+        } else {
+          // send message to other...
+        }
+      }
+    } else {
+      // Not the one
+    }
+  }
+}
+
+class BrokenAction extends Action {
+  constructor(initiator) {
+    super(initiator);
+    this.setPriority(PRIORITY.HIGHEST);
+    this.setAttack(ATTACK.UNSTOPPABLE);
+    this.setTarget(initiator);
+    this.tags.add(ACTION_TAG.TRANSPORT_IMMUNE);
+    this.tags.add(ACTION_TAG.ROLEBLOCK_IMMUNE);
+    this.tags.add(ACTION_TAG.BYPASS_JAIL);
+    this.tags.add(ACTION_TAG.CONTROL_IMMUNE);
   }
 }
 
 module.exports = StarCrossedLover;
+module.exports.investigateWith = require("./Investigator");
+// NOTE: could be underpowered

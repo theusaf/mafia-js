@@ -18,9 +18,10 @@ class Executioner extends NeutralInnocentRole {
   }
 
   beforeGameSetup() {
-    const possibleTargets = this.player.game.players.filter((player) => {
+    const possibleTargets = [];
+    this.player.game.repeatAllPlayers((player) => {
       const {role} = player;
-      return roleFilter(role);
+      if (roleFilter(role)) {possibleTargets.push(player);}
     });
     this.target = possibleTargets[Math.floor(Math.random() * possibleTargets.length)];
   }
@@ -35,6 +36,7 @@ class Executioner extends NeutralInnocentRole {
   }
 
   afterVotingSetup() {
+    if (this.player.isDead()) {return;}
     const {game} = this.player,
       {voteInformation} = game;
     if (voteInformation.votedTarget === this.additionalInformation.target && this.player.isDead()) {

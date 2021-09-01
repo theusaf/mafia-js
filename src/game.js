@@ -13,7 +13,7 @@ class Game extends EventEmitter {
   constructor(options = {}) {
     super();
     this.options = {
-      roles: options.roles ?? roles.roles,
+      roles: options.roles ?? roles.roles.filter((role) => !(role instanceof Cleaned)),
       autoPlayThrough: !!options.autoPlayThrough
     };
     this.date = 0;
@@ -280,7 +280,6 @@ class Game extends EventEmitter {
           const chosenRoleConstructor = roles[Math.floor(Math.random() * roles.length)],
             chosenRole = new chosenRoleConstructor,
             {selection} = chosenRole;
-          if (chosenRole instanceof Cleaned) {continue;}
           // check max
           if (selection.max > 0) {
             const currentCount = players.reduce((count, player) => {
