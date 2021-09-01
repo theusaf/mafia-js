@@ -51,7 +51,8 @@ class RetributeAction extends Action {
     copy.player = new Player("fake", "id");
     const targetActions = copy.getNightActions();
     if (targetActions.length !== 1) {throw new RangeError("Targeted Role has an invalid number of actions. This is not allowed. " + targetRole);}
-    const [usedAction] = targetActions;
+    let [usedAction] = targetActions;
+    if (Array.isArray(usedAction)) {usedAction = usedAction[0];}
     usedAction.initiator = target;
     usedAction.target = this.targetAction.target;
     this.targetAction.target.targetActions.add(usedAction);

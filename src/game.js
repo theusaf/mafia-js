@@ -40,7 +40,9 @@ class Game extends EventEmitter {
       /**
        * @param {Boolean} vampiresCanBite Whether vampires can bite
        */
-      vampiresCanBite: true
+      vampiresCanBite: true,
+      livingPlayersBeforeNight: [],
+      killedAtNight: []
     };
   }
 
@@ -95,11 +97,21 @@ class Game extends EventEmitter {
     }
     case STAGE.NIGHT: {
       this.stage = STAGE.CALCULATION;
+      this.otherInformation.livingPlayersBeforeNight = [];
+      this.otherInformation.killedAtNight = [];
+      this.repeatAllPlayers((player) => {
+        if (player.isAlive()) {
+          this.otherInformation.livingPlayersBeforeNight.push(player);
+        }
+      });
       this.executeActions();
       break;
     }
     case STAGE.CALCULATION: {
       this.repeatAllPlayers((player) => player.role.afterNightSetup());
+      for (const player of this.otherInformation.livingPlayersBeforeNight) {
+        if (player.isDead()) {this.otherInformation.killedAtNight.push(player);}
+      }
       this.stage = STAGE.PRE_DISCUSSION;
       break;
     }
