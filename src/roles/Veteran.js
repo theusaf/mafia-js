@@ -46,7 +46,7 @@ class AlertAction extends Action {
       const {initiator} = action;
       initiator.targetActions.add(new AttackAction(this.initiator, action));
     }
-    if (this.initiator.role.modifiedStats.defense < DEFENSE.BASIC) {
+    if (this.initiator.role.getDefense() < DEFENSE.BASIC) {
       this.initiator.role.modifiedStats.defense = DEFENSE.BASIC;
     }
     this.initiator.role.additionalInformation.alertsRemaining--;

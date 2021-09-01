@@ -119,6 +119,9 @@ module.exports = () => {
         if (player2.isAlive() || game.getPlayerById(3).isAlive()) {
           throw `${killRole.getName(true)} failed to kill all visitors`;
         }
+        if (player1.isDead()) {
+          throw `${killRole.getName(true)} failed to survive basic attacks while on alert`;
+        }
         break;
       }
       case roleMap.Bodyguard: {
@@ -133,6 +136,9 @@ module.exports = () => {
       case roleMap.Arsonist: {
         if (player2.isAlive() || game.getPlayerById(3).isAlive()) {
           throw `${killRole.getName(true)} failed to kill all doused targets`;
+        }
+        if (player1.isDead()) {
+          throw `${killRole.getName(true)} somehow set themselves on fire?`;
         }
         break;
       }

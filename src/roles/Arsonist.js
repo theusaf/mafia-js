@@ -53,6 +53,7 @@ class IgniteAction extends Action {
   constructor(initiator) {
     super(initiator);
     this.setPriority(PRIORITY.KILLERS);
+    this.tags.add(ACTION_TAG.NON_VISIT);
   }
 
   isValidTarget(target) {
