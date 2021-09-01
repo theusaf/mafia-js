@@ -9,13 +9,14 @@ class Vampire extends NeutralInnocentRole {
     this.setType(["neutral", "chaos"]);
     this.setDescription("You are among the undead who want to turn others at night.");
     this.setWinsWith([role => role.TEAM === TEAM.VAMPIRE]);
+    this.shouldSeeTeam = true;
     this.additionalInformation = {
       isYoungest: false
     };
   }
 
   getNightActions() {
-    if (this.player.isAlive() || !this.player.game.otherInformation.vampiresCanBite) {return;}
+    if (this.player.isDead() || !this.player.game.otherInformation.vampiresCanBite) {return;}
     return [new VoteAction(this.player)];
   }
 

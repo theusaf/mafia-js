@@ -14,7 +14,7 @@ class SerialKiller extends Role {
   }
 
   getNightActions() {
-    if (this.player.isAlive()) {return;}
+    if (this.player.isDead()) {return;}
     const attack = new StabAction(this.player),
       cautious = new CautiousAction(this.player, attack),
       rbkill = new KillRoleblockerAction(this.player, cautious);

@@ -53,6 +53,7 @@ class StarCrossedLover extends NeutralInnocentRole {
   }
 
   afterNightSetup() {
+    debugger;
     if (this.additionalInformation.hasBrokenHeart || this.player.isDead()) {
       return;
     }
@@ -84,6 +85,7 @@ class StarCrossedLover extends NeutralInnocentRole {
     }
     if (!foundAction2) {return;}
     this.additionalInformation.hasFoundLove = true;
+    this.shouldSeeTeam = true;
     this.setDefense(DEFENSE.BASIC);
   }
 

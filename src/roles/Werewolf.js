@@ -15,7 +15,7 @@ class Werewolf extends Role {
   }
 
   beforeNightSetup() {
-    if (this.initiator.game.date % 2 === 1 || this.initiator.game.date > 4) {
+    if (this.player.game.date % 2 === 1 || this.player.game.date > 4) {
       this.tags.delete(ROLE_TAG.DETECTION_IMMUNE);
     } else {
       this.tags.add(ROLE_TAG.DETECTION_IMMUNE);
@@ -23,7 +23,7 @@ class Werewolf extends Role {
   }
 
   getNightActions() {
-    if (this.player.isAlive() || (this.initiator.game.date % 2 && !this.initiator.game.date > 4)) {return;}
+    if (this.player.isDead() || (this.player.game.date % 2 && !this.player.game.date > 4)) {return;}
     const rampage = new RampageAction(this.player),
       test = new DetectRoleblockAction(this.player),
       rbkill = new KillRoleblockerAction(this.player, test, rampage);

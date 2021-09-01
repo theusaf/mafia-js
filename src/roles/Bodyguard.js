@@ -14,7 +14,7 @@ class Bodyguard extends TownRole {
   }
 
   getNightActions() {
-    if (!this.player.isAlive()) {return;}
+    if (this.player.isDead()) {return;}
     const actions = [new GuardAction(this.player)];
     if (this.additionalInformation.vestsRemaining >= 1) {
       actions.push(new VestAction(this.player));

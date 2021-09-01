@@ -14,7 +14,7 @@ class Doctor extends TownRole {
   }
 
   getNightActions() {
-    if (!this.player.isAlive()) {return;}
+    if (this.player.isDead()) {return;}
     const actions = [new HealAction(this.player)];
     if (this.additionalInformation.selfHealsRemaining > 0) {
       actions.push(new SelfHealAction(this.player));

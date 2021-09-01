@@ -241,6 +241,7 @@ class Game extends EventEmitter {
    * executeActions - The final phase, executes, cancels, moves, and changes states
    */
   executeActions(executeAt = ACTION_EXECUTE.NIGHT_END) {
+    debugger;
     const ASSUME_ERROR_NUMBER = 500,
       alreadyExecutedActions = new Set;
     let index = 0,
