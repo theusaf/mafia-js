@@ -13,7 +13,7 @@ class Game extends EventEmitter {
   constructor(options = {}) {
     super();
     this.options = {
-      roles: options.roles ?? roles.roles.filter((role) => !(role instanceof Cleaned)),
+      roles: options.roles ?? roles.roles.filter((role) => !(role === Cleaned)),
       autoPlayThrough: !!options.autoPlayThrough
     };
     this.date = 0;
