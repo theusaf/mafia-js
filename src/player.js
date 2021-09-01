@@ -25,7 +25,7 @@ class Player {
     /**
      * @param {Boolean} isAlive Whether the player is alive or not
      */
-    this.isAlive = true;
+    this.alive = true;
 
     /**
      * @param {String} finalWill The will of the player
@@ -68,7 +68,7 @@ class Player {
    * @return {Boolean} true if alive, false if dead
    */
   isAlive() {
-    return this.isAlive;
+    return this.alive;
   }
 
   /**

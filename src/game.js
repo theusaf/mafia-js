@@ -49,7 +49,9 @@ class Game extends EventEmitter {
   addPlayer(name, id=this.players.size) {
     const dupeCheck = this.getPlayerById(id);
     if (dupeCheck) {throw new RangeError("Provided ID is already taken");}
-    this.players.add(new Player(id, name));
+    const player = new Player(id, name);
+    player.game = this;
+    this.players.add(player);
   }
 
   removePlayer(id) {
@@ -240,11 +242,11 @@ class Game extends EventEmitter {
    */
   executeActions(executeAt = ACTION_EXECUTE.NIGHT_END) {
     const ASSUME_ERROR_NUMBER = 500,
-      alreadyExecutedActions = new Set,
-      originalLength = actions.length;
+      alreadyExecutedActions = new Set;
     let index = 0,
+      actions = this.collectPositionedActions(),
       oldLength = actions.length,
-      actions = this.collectPositionedActions();
+      originalLength = actions.length;
     while (index < actions.length) {
       const action = actions[index];
       if (alreadyExecutedActions.has(action)) {index++; continue;}
@@ -350,7 +352,7 @@ class Game extends EventEmitter {
                 players[i + j].role = role;
                 role.setPlayer(players[i + j]);
               }
-              i += selection.min;
+              i += selection.min - 1;
               roleNotFound = false;
               continue;
             } else {

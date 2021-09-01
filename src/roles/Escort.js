@@ -10,7 +10,7 @@ class Escort extends TownRole {
     this.tags.add(ROLE_TAG.ROLEBLOCK_IMMUNE);
   }
 
-  getDayActions() {
+  getNightActions() {
     if (this.player.isDead()) {return;}
     return [new DistractAction(this.player)];
   }
