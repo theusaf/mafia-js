@@ -77,6 +77,11 @@ module.exports = () => {
     killRole.beforeGameSetup();
     game.progressStage();
     switch (killer) {
+      case roleMap.Werewolf: {
+        game.getPlayerById(3).actions[0].setTarget(player2);
+        player1.actions[0].setTarget(player2);
+        break;
+      }
       case roleMap.Veteran: {
         player1.actions[0].setTarget(player1);
         player2.actions[0].setTarget(player1);
@@ -104,6 +109,12 @@ module.exports = () => {
     }
     game.progressStage();
     switch (killer) {
+      case roleMap.Werewolf: {
+        if (player2.isAlive() || game.getPlayerById(3).isAlive()) {
+          throw `${killRole.getName(true)} failed to kill all visitors`;
+        }
+        break;
+      }
       case roleMap.Veteran: {
         if (player2.isAlive() || game.getPlayerById(3).isAlive()) {
           throw `${killRole.getName(true)} failed to kill all visitors`;
