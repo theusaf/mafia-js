@@ -1,5 +1,7 @@
 const EventEmitter = require("events"),
   Mayor = require("./roles/Mayor"),
+  Cleaned = require("./roles/other/Cleaned"),
+  Player = require("./Player"),
   ENUM = require("./enum"),
   {STAGE, ACTION_TAG, ACTION_EXECUTE} = ENUM,
   shuffle = require("./util/shuffle"),
@@ -16,7 +18,7 @@ class Game extends EventEmitter {
     };
     this.date = 0;
     this.stage = STAGE.GAME_START;
-    this.players = {};
+    this.players = new Set;
     this.voteInformation = {
 
       /**
@@ -40,6 +42,24 @@ class Game extends EventEmitter {
        */
       vampiresCanBite: true
     };
+  }
+
+  addPlayer(name, id=this.players.size) {
+    const dupeCheck = this.getPlayerById(id);
+    if (dupeCheck) {throw new RangeError("Provided ID is already taken");}
+    this.players.add(new Player(id, name));
+  }
+
+  removePlayer(id) {
+    const toRemove = this.getPlayerById(id);
+    this.players.delete(toRemove);
+  }
+
+  getPlayerById(id) {
+    for (const player of this.players) {
+      if (player.id === id) {return player;}
+    }
+    return null;
   }
 
   repeatAllPlayers(func) {
@@ -225,6 +245,7 @@ class Game extends EventEmitter {
           const chosenRoleConstructor = roles[Math.floor(Math.random() * roles.length)],
             chosenRole = new chosenRoleConstructor,
             {selection} = chosenRole;
+          if (chosenRole instanceof Cleaned) {continue;}
           // check max
           if (selection.max > 0) {
             const currentCount = players.reduce((count, player) => {
