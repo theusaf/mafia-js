@@ -23,7 +23,7 @@
 */
 
 const NeutralInnocentRole = require("../NeutralInnocentRole"),
-  Action == require("../Action"),
+  Action = require("../Action"),
   {TEAM, DEFENSE, ATTACK, TARGET_FILTER, PRIORITY, ACTION_TAG} = require("../enum");
 
 class StarCrossedLover extends NeutralInnocentRole {
@@ -115,7 +115,6 @@ class StareAction extends Action {
     const {target} = this,
       {targetActions} = this.initiator;
     if (target.role instanceof StarCrossedLover) {
-      let mutual = false;
       for (const action of targetActions) {
         if (action instanceof StareAction && !action.isCanceled() && action.initiator !== this.initiator) {
           // they found each other!
