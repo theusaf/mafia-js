@@ -22,7 +22,8 @@
   - night action (2): can attack with a BASIC attack.
 */
 
-const NeutralInnocentRole = require("../NeutralInnocentRole");
+const NeutralInnocentRole = require("../NeutralInnocentRole"),
+  {TEAM} = require("../enum");
 
 class StarCrossedLover extends NeutralInnocentRole {
   constructor() {

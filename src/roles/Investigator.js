@@ -33,4 +33,4 @@ class InvestigateAction extends Action {
 }
 
 module.exports = Investigator;
-module.exports.investigateWith = Investigator
+module.exports.investigateWith = Investigator;

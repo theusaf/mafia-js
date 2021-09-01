@@ -3,23 +3,17 @@ const EventEmitter = require("events"),
   ENUM = require("./enum"),
   {STAGE, ACTION_TAG, ACTION_EXECUTE} = ENUM,
   shuffle = require("./util/shuffle"),
+  roles = require("./roles"),
   prioritySort = (a, b) => a.priority - b.priority;
-
-{
-  const {roles} = require("./roles");
-
-  for (const role of roles) {
-    const investigateWith = role.investigateWith ?? role;
-    ENUM.INVESTIGATOR_GROUP.add(role, investigateWith);
-  }
-
-  ENUM.INVESTIGATOR_GROUP._end();
-}
 
 class Game extends EventEmitter {
 
-  constructor() {
+  constructor(options = {}) {
     super();
+    this.options = {
+      roles: options.roles ?? roles.roles,
+      autoPlayThrough: !!options.autoPlayThrough
+    };
     this.date = 0;
     this.stage = STAGE.GAME_START;
     this.players = {};
@@ -224,7 +218,97 @@ class Game extends EventEmitter {
       this.repeatAllPlayers((player) => players.push(player));
       shuffle(players, true);
       // create roles!
-
+      const {roles} = this.options;
+      for (let i = 0; i < players.length; i++) {
+        let roleNotFound = true;
+        while(roleNotFound) {
+          const chosenRoleConstructor = roles[Math.floor(Math.random() * roles.length)],
+            chosenRole = new chosenRoleConstructor,
+            {selection} = chosenRole;
+          // check max
+          if (selection.max > 0) {
+            const currentCount = players.reduce((count, player) => {
+              if (player.role instanceof chosenRoleConstructor) {count++;}
+              return count;
+            }, 0);
+            if (currentCount >= selection.max) {
+              continue;
+            }
+          }
+          // check team max
+          if (selection.maxOfTeam > 0) {
+            const currentCount = players.reduce((count, player) => {
+              if (player.role?.getTeam(true) === chosenRole.getTeam(true)) {count++;}
+              return count;
+            }, 0);
+            if (currentCount >= selection.maxOfTeam) {
+              continue;
+            }
+          }
+          // check requires
+          if (selection.require) {
+            if (selection.requireAll && Array.isArray(selection.require)) {
+              let foundMatch = true;
+              for (const req of selection.require) {
+                let match;
+                if (typeof req === "function") {
+                  match = players.find((player) => player.role ? req(player.role) : false);
+                } else {
+                  match = players.find((player) => player.role?.getName(true) === req);
+                }
+                if (!match) {
+                  foundMatch = false;
+                  break;
+                }
+              }
+              if (!foundMatch) {continue;}
+            } else if (Array.isArray(selection.require)) {
+              let foundMatch = false;
+              for (const req of selection.require) {
+                let match;
+                if (typeof req === "function") {
+                  match = players.find((player) => player.role ? req(player.role) : false);
+                } else {
+                  match = players.find((player) => player.role?.getName(true) === req);
+                }
+                if (match) {
+                  foundMatch = true;
+                  break;
+                }
+              }
+              if (!foundMatch) {continue;}
+            } else {
+              if (typeof selection.require === "function") {
+                const match = players.find((player) => player.role ? selection.require(player.role) : false);
+                if (!match) {continue;}
+              } else {
+                const match = players.find((player) => player.role?.getName(true) === selection.require);
+                if (!match) {continue;}
+              }
+            }
+          }
+          // check mins
+          if (selection.min > 0) {
+            if (selection.min + i < players.length) {
+              for (let j = 0; j < selection.min; j++) {
+                const role = new chosenRoleConstructor();
+                players[i + j].role = role;
+                role.setPlayer(players[i + j]);
+              }
+              i += selection.min;
+              roleNotFound = false;
+              continue;
+            } else {
+              continue;
+            }
+          }
+          // set role!
+          players[i].role = chosenRole;
+          chosenRole.setPlayer(players[i]);
+          roleNotFound = false;
+        }
+      }
+      this.emit("startGame", this.players);
       this.progressStage();
     } else {
       throw new RangeError("Game already started");
