@@ -119,7 +119,7 @@ class Game extends EventEmitter {
       break;
     }
     case STAGE.NIGHT: {
-      this.stage = STAGE.CALCULATION;
+      this.stage = STAGE.CALCULATION; // TODO: do I really need this?
       this.otherInformation.livingPlayersBeforeNight = [];
       this.otherInformation.killedAtNight = [];
       this.repeatAllPlayers((player) => {
@@ -128,14 +128,13 @@ class Game extends EventEmitter {
         }
       });
       this.executeActions();
-      break;
-    }
-    case STAGE.CALCULATION: {
       this.repeatAllPlayers((player) => player.role.afterNightSetup());
       for (const player of this.otherInformation.livingPlayersBeforeNight) {
         if (player.isDead()) {
-          this.otherInformation.killedAtNight.push(player);
           player.role.afterDeathSetup();
+          if (player.isDead()) {
+            this.otherInformation.killedAtNight.push(player);
+          }
         }
       }
       this.stage = STAGE.PRE_DISCUSSION;
@@ -225,7 +224,7 @@ class Game extends EventEmitter {
     const actions = this.collectActions();
     for (const action of actions) {
       const positionedActions = action.position();
-      positionedActions?.forEach(action => action.target.targetActions.add(action));
+      positionedActions?.forEach(action => action.target?.targetActions.add(action));
     }
   }
 
@@ -245,7 +244,7 @@ class Game extends EventEmitter {
    * executeActions - The final phase, executes, cancels, moves, and changes states
    */
   executeActions(executeAt = ACTION_EXECUTE.NIGHT_END) {
-    const ASSUME_ERROR_NUMBER = 500,
+    const ASSUME_ERROR_NUMBER = 100,
       alreadyExecutedActions = new Set;
     this.positionActions();
     let index = 0,

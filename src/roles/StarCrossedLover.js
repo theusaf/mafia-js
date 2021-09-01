@@ -53,7 +53,6 @@ class StarCrossedLover extends NeutralInnocentRole {
   }
 
   afterNightSetup() {
-    debugger;
     if (this.additionalInformation.hasBrokenHeart || this.player.isDead()) {
       return;
     }
