@@ -23,7 +23,7 @@ class Werewolf extends Role {
   }
 
   getNightActions() {
-    if (this.player.isDead() || (this.player.game.date % 2 && !this.player.game.date > 4)) {return;}
+    if (this.player.isDead() || (this.player.game.date % 2 && this.player.game.date < 4)) {return;}
     const rampage = new RampageAction(this.player),
       test = new DetectRoleblockAction(this.player),
       rbkill = new KillRoleblockerAction(this.player, test, rampage);
@@ -31,6 +31,7 @@ class Werewolf extends Role {
   }
 
   getJailActions() {
+    if (this.player.game.date % 2 && this.player.game.date < 4) {return;}
     return [new KillRoleblockerAction(this.player)];
   }
 }
