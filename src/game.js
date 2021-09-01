@@ -79,10 +79,26 @@ class Game extends EventEmitter {
       player.role.modifiedStats = {};
       player.actions = [];
       for (const action of player.targetActions) {
-        if (action.tags.persistent && !action.isCanceled()) {
+        if (action.persistent && !action.isCanceled()) {
+          continue;
+        }
+        if (this.stage !== STAGE.CALCULATION && action.executeAt === ACTION_EXECUTE.NIGHT_START) {
           continue;
         }
         player.targetActions.delete(action);
+      }
+    });
+  }
+
+  beforeNightSetup() {
+    this.clearTempData();
+    this.executeActions(ACTION_EXECUTE.NIGHT_START);
+    this.repeatAllPlayers((player) => player.role.beforeNightSetup());
+    this.repeatAllPlayers((player) => {
+      if (player.effectData.jailed) {
+        player.actions = player.role.getJailActions();
+      } else {
+        player.actions = player.role.getNightActions();
       }
     });
   }
@@ -92,7 +108,7 @@ class Game extends EventEmitter {
     case STAGE.GAME_START: {
       this.repeatAllPlayers((player) => player.role.beforeGameSetup());
       this.stage = STAGE.NIGHT;
-      this.repeatAllPlayers((player) => player.role.beforeNightSetup());
+      this.beforeNightSetup();
       break;
     }
     case STAGE.NIGHT: {
@@ -110,7 +126,10 @@ class Game extends EventEmitter {
     case STAGE.CALCULATION: {
       this.repeatAllPlayers((player) => player.role.afterNightSetup());
       for (const player of this.otherInformation.livingPlayersBeforeNight) {
-        if (player.isDead()) {this.otherInformation.killedAtNight.push(player);}
+        if (player.isDead()) {
+          this.otherInformation.killedAtNight.push(player);
+          player.role.afterDeathSetup();
+        }
       }
       this.stage = STAGE.PRE_DISCUSSION;
       break;
@@ -119,6 +138,9 @@ class Game extends EventEmitter {
       this.clearTempData();
       this.stage = STAGE.DISCUSSION;
       this.checkVictors();
+      this.repeatAllPlayers((player) => {
+        player.actions = player.role.getDayActions();
+      });
       break;
     }
     case STAGE.DISCUSSION: {
@@ -132,7 +154,7 @@ class Game extends EventEmitter {
         this.stage = STAGE.VOTE_DEFENSE;
       } else {
         this.stage = STAGE.NIGHT;
-        this.repeatAllPlayers((player) => player.role.beforeNightSetup());
+        this.beforeNightSetup();
       }
       break;
     }
@@ -154,9 +176,10 @@ class Game extends EventEmitter {
         this.stage = STAGE.VOTING;
       } else {
         this.stage = STAGE.NIGHT;
+        this.repeatAllPlayers((player) => player.role.afterVotingSetup());
         this.checkVictors();
         if (this.stage !== STAGE.GAME_END) {
-          this.repeatAllPlayers((player) => player.role.beforeNightSetup());
+          this.beforeNightSetup();
         }
       }
       break;

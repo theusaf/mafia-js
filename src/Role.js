@@ -65,7 +65,7 @@ class Role {
      * Example:
      * (role) => return role.name === "Jester"; // wins with jester
      */
-    this.winsWith = ["*"];
+    this.winsWith = [() => true];
 
     /**
      * @param {Object} additionalInformation Extra information for specific interactions.
