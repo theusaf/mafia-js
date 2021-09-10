@@ -3,7 +3,7 @@ const EventEmitter = require("events"),
   Cleaned = require("./roles/other/Cleaned"),
   Player = require("./Player"),
   ENUM = require("./enum"),
-  {STAGE, ACTION_TAG, ACTION_EXECUTE} = ENUM,
+  {STAGE, ACTION_TAG, ACTION_EXECUTE, VOTE} = ENUM,
   shuffle = require("./util/shuffle"),
   roles = require("./roles"),
   prioritySort = (a, b) => a.priority - b.priority;
@@ -106,6 +106,34 @@ class Game extends EventEmitter {
     });
   }
 
+  checkVotes() {
+    function votesOnPlayer(getPlayer) {
+      return this.voteInformation.votes.reduce((info, value) => {
+        const {player, vote, target} = info;
+        if (target !== getPlayer) {
+          return value;
+        }
+        if (player.role instanceof Mayor && player.role.additionalInformation.isRevealed) {
+          return value + vote * 3;
+        } else {
+          return value + vote;
+        }
+      }, 0);
+    }
+    const livingPlayers = [];
+    for (const player of this.players) {
+      if (player.isAlive()) {livingPlayers.push(player);}
+    }
+    const requiredVotes = Math.floor(livingPlayers.length / 2) + 1;
+    for (const player of livingPlayers) {
+      if (votesOnPlayer >= requiredVotes) {
+        this.voteInformation.votedTarget = player;
+        progressStage();
+        break;
+      }
+    }
+  }
+
   progressStage() {
     switch (this.stage) {
     case STAGE.GAME_START: {
@@ -152,12 +180,14 @@ class Game extends EventEmitter {
     case STAGE.DISCUSSION: {
       this.stage = STAGE.VOTING;
       this.voteInformation.voteSessionsRemaining = 3;
-      this.votedTarget = null;
+      this.voteInformation.votedTarget = null;
+      this.voteInformation.votes = [];
       break;
     }
     case STAGE.VOTING: {
       if (this.votedTarget) {
         this.stage = STAGE.VOTE_DEFENSE;
+        this.voteInformation.votes = [];
       } else {
         this.stage = STAGE.NIGHT;
         this.beforeNightSetup();
@@ -270,6 +300,23 @@ class Game extends EventEmitter {
       }
     }
   }
+
+  votePlayer(voter, voteTarget) {
+    this.voteInformation.votes.push({
+      vote: VOTE.GUILTY,
+      player: voter,
+      target: voteTarget
+    });
+    this.checkVotes();
+  }
+
+  cancelVotePlayer(voter) {
+    // TODO
+  }
+
+  voteGuilty(voter) {} // TODO
+
+  cancelVoteGuilty(voter) {} // TODO
 
   checkVictors() {}
 
