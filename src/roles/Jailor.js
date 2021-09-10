@@ -1,6 +1,6 @@
 const TownRole = require("../TownRole"),
   Action = require("../Action"),
-  {ACTION_TAG, ATTACK, TEAM, TARGET_FILTER, PRIORITY, ACTION_EXECUTE} = require("../enum");
+  {ACTION_TAG, ATTACK, DEFENSE, TEAM, TARGET_FILTER, PRIORITY, ACTION_EXECUTE} = require("../enum");
 
 class Jailor extends TownRole {
   constructor() {
@@ -64,6 +64,36 @@ class JailAction extends Action {
   execute() {
     if (this.notPerformed()) {return;}
     this.target.effectData.jailed = true;
+    const {role} = this.target,
+      jailProtect = new JailProtectionAction(this.initiator, this.target);
+    this.target.targetActions.add(jailProtect);
+    if (role.getDefense() < DEFENSE.POWERFUL) {
+      role.modifiedStats.defense = DEFENSE.POWERFUL;
+    }
+  }
+}
+
+class JailProtectionAction extends Action {
+  constructor(initiator, target) {
+    super(initiator);
+    this.setPriority(PRIORITY.HIGHEST);
+    this.setTarget(target);
+    this.tags.add(ACTION_TAG.NON_VISIT);
+    this.tags.add(ACTION_TAG.ROLEBLOCK_IMMUNE);
+    this.tags.add(ACTION_TAG.CONTROL_IMMUNE);
+    this.tags.add(ACTION_TAG.TRANSPORT_IMMUNE);
+  }
+
+  execute() {
+    const {targetActions} = this.target;
+    for (const action of targetActions) {
+      if (action.tags.has(ACTION_TAG.NON_VISIT)
+      || action.tags.has(ACTION_TAG.BYPASS_JAIL)
+      || action.initiator === this.initiator) {
+        continue;
+      }
+      action.cancel("Jail", this);
+    }
   }
 }
 

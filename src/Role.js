@@ -111,8 +111,9 @@ class Role {
    * - These are run even if the player is dead.
    *
    * @return {Action[]|Action[][]} An array of actions
-   * - If an array of an array of actions, the array of actions is treated like one action.
-   * - This means that selecting a target in one action in the nested array will deselect any other action's target in the list.
+   * - If an array of an array of actions, the array of actions should be treated like one action.
+   * - This means that selecting a target in one action in the nested array should deselect any other action's target in the list.
+   * - (handled by application using this library)
    */
   getNightActions() {}
   getDayActions() {}
